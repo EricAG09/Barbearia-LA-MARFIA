@@ -94,15 +94,91 @@
     background-image: url("/assents/social.jpg");
   }
 
-  .card-images {
+
+  .transformacoes{
     display: flex;
-    justify-content: space-between; /* Deixa as imagens lado a lado */
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+  /**Chamar o card com as imagens*/
+
+  .card {
+    width: 100%; /* Faz o card ocupar a largura máxima disponível */
+    max-width: 400px; /* Define um limite para o tamanho */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    background-color: white;
+}
+
+  .card-images {
+      display: flex;
+      justify-content: center;
+      gap: 5px; /* Pequeno espaçamento entre as imagens */
+      padding: 10px;
+      width: 100%;
   }
 
-  .card-images img {
-    width: 50%; /* Cada imagem ocupa metade do espaço */
-    height: auto;
+  .image {
+      flex: 1; /* Faz as imagens ocuparem o máximo de espaço possível */
+      height: 200px; /* Altura maior para destacar as imagens */
+      background-size: cover;
+      background-position: center;
+      border-radius: 5px;
   }
+
+  .image1 {
+      background-image: url('assents/corte-americano1.jpg');
+  }
+  .image1:hover {
+        filter: blur(5px);
+        transition: 1s ease;
+        transition: 1s ease;
+  }
+
+  .image2 {
+      background-image: url('assents/militar.jpg');
+      filter: blur(5px);
+      transition: 1s ease;
+
+  }
+  .image2:hover {
+    transition: 1s ease;
+    filter: none;
+}
+
+  .card-body {
+      padding: 15px;
+  }
+
+  .card-title {
+      font-size: 18px;
+      margin-bottom: 10px;
+  }
+
+  .card-text {
+      font-size: 14px;
+      color: #555;
+  }
+
+  .btn {
+      display: inline-block;
+      padding: 8px 15px;
+      background-color: #007bff;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      margin-top: 10px;
+  }
+
+  .btn:hover {
+      background-color: #0056b3;
+  }
+
+
 
   @media (max-width: 999px) {
     body {
