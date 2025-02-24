@@ -1,44 +1,70 @@
-class MobileNavbar {
-    constructor(mobileMenu, navList, navLinks) {
-      this.mobileMenu = document.querySelector(mobileMenu);
-      this.navList = document.querySelector(navList);
-      this.navLinks = document.querySelectorAll(navLinks);
-      this.activeClass = "active";
-  
-      this.handleClick = this.handleClick.bind(this);
+const slide = document.querySelector(".slide");
+const images = document.querySelectorAll(".slide img");
+const prevButton = document.getElementById("prev");
+const nextButton = document.getElementById("next");
+
+let index = 0;
+let startX = 0;
+let endX = 0;
+const totalSlides = images.length;
+
+// Função para atualizar o slide
+function showSlide() {
+    slide.style.transform = `translateX(${-index * 100}vw)`;
+}
+
+// Botão "Próximo"
+nextButton.addEventListener("click", () => {
+    if (index < totalSlides - 1) {
+        index++;
+    } else {
+        index = 0; // Volta para a primeira imagem
     }
-  
-    animateLinks() {
-      this.navLinks.forEach((link, index) => {
-        link.style.animation
-          ? (link.style.animation = "")
-          : (link.style.animation = `navLinkFade 0.5s ease forwards ${
-              index / 7 + 0.3
-            }s`);
-      });
+    showSlide();
+});
+
+// Botão "Anterior"
+prevButton.addEventListener("click", () => {
+    if (index > 0) {
+        index--;
+    } else {
+        index = totalSlides - 1; // Volta para a última imagem
     }
-  
-    handleClick() {
-      this.navList.classList.toggle(this.activeClass);
-      this.mobileMenu.classList.toggle(this.activeClass);
-      this.animateLinks();
+    showSlide();
+});
+
+// Eventos de toque para mobile (detecta swipe)
+slide.addEventListener("touchstart", (e) => {
+    startX = e.touches[0].clientX;
+});
+
+slide.addEventListener("touchend", (e) => {
+    endX = e.changedTouches[0].clientX;
+
+    if (startX > endX + 50) {
+        // Deslizou para a esquerda (próxima imagem)
+        if (index < totalSlides - 1) {
+            index++;
+        } else {
+            index = 0; // Volta para a primeira imagem
+        }
+    } else if (startX < endX - 50) {
+        // Deslizou para a direita (imagem anterior)
+        if (index > 0) {
+            index--;
+        } else {
+            index = totalSlides - 1; // Volta para a última imagem
+        }
     }
-  
-    addClickEvent() {
-      this.mobileMenu.addEventListener("click", this.handleClick);
+    showSlide();
+});
+
+// Auto slide a cada 3 segundos
+setInterval(() => {
+    if (index < totalSlides - 1) {
+        index++;
+    } else {
+        index = 0; // Volta para a primeira imagem
     }
-  
-    init() {
-      if (this.mobileMenu) {
-        this.addClickEvent();
-      }
-      return this;
-    }
-  }
-  
-  const mobileNavbar = new MobileNavbar(
-    ".mobile-menu",
-    ".nav-list",
-    ".nav-list li",
-  );
-  mobileNavbar.init();
+    showSlide();
+}, 3000);

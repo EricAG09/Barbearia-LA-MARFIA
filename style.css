@@ -179,10 +179,61 @@
   }
 
 
+.carousel {
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+    position: relative;
+}
+
+.slide {
+    display: flex;
+    width: 100%; /* 100% para cada imagem */
+    transition: transform 0.5s ease-in-out;
+}
+
+.slide img {
+    width: 100%; /* Cada imagem ocupa 100% da largura da tela */
+    height: 300px;
+    object-fit: cover;
+    gap: 10px;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 24px;
+}
+
+#prev {
+    left: 10px;
+}
+
+#next {
+    right: 10px;
+}
+
+button:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
 
   @media (max-width: 999px) {
     body {
       overflow-x: hidden;
+    }
+    .navbar-brand{
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     .nav-list {
       position: absolute;
