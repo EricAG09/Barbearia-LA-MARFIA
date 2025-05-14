@@ -1,0 +1,97 @@
+import React from "react";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { Card, CardContent } from "@/components/ui/card";
+import { MessageSquare } from "lucide-react";
+
+const testimonials = [
+  {
+    id: 1,
+    name: "Carlos Mendes",
+    text: "Atendimento de primeira qualidade. O ambiente é muito aconchegante e o resultado do corte superou minhas expectativas! Recomendo demais.",
+    rating: 5,
+    image: "https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D"
+  },
+  {
+    id: 2,
+    name: "Roberto Alves",
+    text: "Já visitei várias barbearias, mas a Master Barber está em outro nível. A atenção aos detalhes e o cuidado com o cliente são impressionantes.",
+    rating: 5,
+    image: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8dXNlcnxlbnwwfHwwfHx8MA%3D%3D"
+  },
+  {
+    id: 3,
+    name: "André Vieira",
+    text: "O atendimento é excelente e o ambiente é super agradável. O barbeiro entendeu exatamente o que eu queria e o resultado foi perfeito!",
+    rating: 5,
+    image: "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fHVzZXJ8ZW58MHx8MHx8fDA%3D"
+  },
+  {
+    id: 4,
+    name: "Marcos Paulo",
+    text: "O combo barba e cabelo é sensacional. Muito bem feito e com produtos de primeira linha. Vale cada centavo!",
+    rating: 5,
+    image: "https://images.unsplash.com/photo-1527980965255-d3b416303d12?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8dXNlcnxlbnwwfHwwfHx8MA%3D"
+  },
+];
+
+const Testimonials = () => {
+  return (
+    <section
+      id="testimonials"
+      className="section-padding bg-barber-dark"
+    >
+      <div className="container mx-auto">
+        <div className="text-center mb-12">
+          <h2 className="font-serif text-3xl md:text-4xl font-bold mb-4">
+            O Que <span className="text-barber-gold">Dizem</span> Sobre Nós
+          </h2>
+          <div className="flex items-center justify-center gap-3 mb-6">
+            <div className="h-px w-12 bg-barber-gold"></div>
+            <MessageSquare size={20} className="text-barber-gold" />
+            <div className="h-px w-12 bg-barber-gold"></div>
+          </div>
+          <p className="text-gray-400 max-w-2xl mx-auto">
+            Veja o que nossos clientes têm a dizer sobre a experiência Master Barber.
+          </p>
+        </div>
+
+        <Carousel className="w-full max-w-5xl mx-auto">
+          <CarouselContent>
+            {testimonials.map((testimonial) => (
+              <CarouselItem key={testimonial.id} className="md:basis-1/2 lg:basis-1/3 pl-4">
+                <Card className="bg-barber-darker border-barber-gold/20 h-full">
+                  <CardContent className="p-6 flex flex-col h-full">
+                    <div className="flex items-center gap-4 mb-4">
+                      <div className="w-12 h-12 rounded-full overflow-hidden">
+                        <img
+                          src={testimonial.image}
+                          alt={testimonial.name}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-barber-gold">{testimonial.name}</h3>
+                        <div className="flex text-barber-gold">
+                          {[...Array(testimonial.rating)].map((_, i) => (
+                            <span key={i}>★</span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                    <p className="text-gray-300 italic flex-grow">"{testimonial.text}"</p>
+                  </CardContent>
+                </Card>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <div className="hidden md:flex justify-center mt-6 gap-4">
+            <CarouselPrevious className="static transform-none bg-transparent border-barber-gold text-barber-gold hover:bg-barber-gold/10" />
+            <CarouselNext className="static transform-none bg-transparent border-barber-gold text-barber-gold hover:bg-barber-gold/10" />
+          </div>
+        </Carousel>
+      </div>
+    </section>
+  );
+};
+
+export default Testimonials;
