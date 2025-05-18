@@ -4,7 +4,7 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center justify-center bg-barber-darker overflow-hidden"
+      className="hero relative min-h-screen flex items-center justify-center bg-barber-darker overflow-hidden"
     >
       {/* Overlay Image */}
       <div

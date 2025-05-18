@@ -84,7 +84,7 @@ const Booking = () => {
   return (
     <section
       id="booking"
-      className="section-padding bg-gradient-to-b from-barber-dark to-barber-darker"
+      className="booking section-padding bg-gradient-to-b from-barber-dark to-barber-darker"
     >
       <div className="container mx-auto">
         <div className="text-center mb-12">

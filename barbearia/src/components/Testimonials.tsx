@@ -38,7 +38,7 @@ const Testimonials = () => {
   return (
     <section
       id="testimonials"
-      className="section-padding bg-barber-dark"
+      className="testemonials section-padding bg-barber-dark"
     >
       <div className="container mx-auto">
         <div className="text-center mb-12">

@@ -45,7 +45,7 @@ const Gallery = () => {
   return (
     <section
       id="gallery"
-      className="section-padding bg-barber-dark"
+      className="gallery section-padding bg-barber-dark"
     >
       <div className="container mx-auto">
         <div className="text-center mb-12">
