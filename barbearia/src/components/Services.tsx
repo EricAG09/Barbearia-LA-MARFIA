@@ -38,6 +38,13 @@ const servicesList = [
     image: "https://images.unsplash.com/photo-1589710751893-f9a6770ad71b?q=80&w=1887",
     description: "Coloração profissional para cabelo ou barba com produtos premium.",
   },
+   {
+    id: 5,
+    name: "Corte Degradê",
+    price: "R$40",
+    image: "https://images.unsplash.com/photo-1599351431202-1e0f0137899a?q=80&w=1888",
+    description: "Corte de cabelo clássico com acabamento perfeito e lavagem.",
+  },
 ];
 
 const Services = () => {
