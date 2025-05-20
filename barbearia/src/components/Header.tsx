@@ -40,7 +40,7 @@ const Header = () => {
       <div className="container mx-auto px-4 flex justify-between items-center">
         <a href="#home" className="flex items-center">
           <span className="font-serif text-2xl md:text-3xl font-bold text-barber-gold">
-            LA-<span className="text-white">MARFIA</span>
+            LA-<span className="text-white">MAFIA</span>
           </span>
         </a>
 

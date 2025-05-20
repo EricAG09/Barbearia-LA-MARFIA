@@ -2,6 +2,12 @@ import React from "react";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { Card, CardContent } from "@/components/ui/card";
 import { MessageSquare } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { interval } from "date-fns";
+import test from "node:test";
+
+
+
 
 const testimonials = [
   {
@@ -80,6 +86,15 @@ const Testimonials = () => {
                     </div>
                     <p className="text-gray-300 italic flex-grow">"{testimonial.text}"</p>
                   </CardContent>
+                  {/* <CardContent ref={CarouselContent}>
+                    {testimonial.map((testimonial, index) => (
+                      <CarouselItem>
+                        key={testimonial.id}
+                        data-carousel-item
+                        className="md:basis-1/2 lg:basis-1/3 pl-4"
+                      </CarouselItem>
+                   ))}
+                  </CardContent> */}
                 </Card>
               </CarouselItem>
             ))}
@@ -88,7 +103,12 @@ const Testimonials = () => {
             <CarouselPrevious className="static transform-none bg-transparent border-barber-gold text-barber-gold hover:bg-barber-gold/10" />
             <CarouselNext className="static transform-none bg-transparent border-barber-gold text-barber-gold hover:bg-barber-gold/10" />
           </div>
+          <div>
+         
+          </div>
         </Carousel>
+        
+        
       </div>
     </section>
   );
