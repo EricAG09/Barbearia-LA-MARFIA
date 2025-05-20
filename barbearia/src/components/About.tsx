@@ -4,7 +4,7 @@ const About = () => {
   return (
     <section
       id="about"
-      className="section-padding bg-barber-darker relative overflow-hidden"
+      className="about section-padding bg-barber-darker relative overflow-hidden"
     >
       {/* Background overlay */}
       <div className="absolute inset-0 opacity-10">
