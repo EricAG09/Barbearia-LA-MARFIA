@@ -44,7 +44,7 @@ const Hero = () => {
 
       {/* Scroll Indicator */}
       <div className="absolute bottom-10 left-0 right-0 flex justify-center animate-bounce">
-        <a href="#services" className="text-barber-gold">
+        <a href="#services" className="scroll-indicator">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -52,7 +52,7 @@ const Hero = () => {
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
-            strokeWidth="2"
+            strokeWidth="3"
             strokeLinecap="round"
             strokeLinejoin="round"
           >
