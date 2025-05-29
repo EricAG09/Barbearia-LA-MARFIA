@@ -66,10 +66,15 @@ yarn dev
 
 ## 💡 Funcionalidades
 -Cadastro de serviços
+
 -Agendamento de horários
+
 -Validação de campos
--Visualização de agendamentos (modo admin)
+
+-Visualização de agendamentos (Via Whatsapp)
+
 -Design responsivo
+
 -Integração com Whatsapp
 
 ## 🤝 Contribuindo
