@@ -58,42 +58,39 @@ yarn install
 yarn dev
 # ou npm run dev
 
----
 
-🛰 Deploy
-Hospedado automaticamente via Vercel.
+```
 
----
+## 🛰 Deploy
+- Hospedado automaticamente via Vercel.
 
-💡 Funcionalidades
-Cadastro de serviços
+## 💡 Funcionalidades
+-Cadastro de serviços
+-Agendamento de horários
+-Validação de campos
+-Visualização de agendamentos (modo admin)
+-Design responsivo
+-Integração com Whatsapp
 
-Agendamento de horários
+## 🤝 Contribuindo
+-Contribuições são bem-vindas!
 
-Validação de campos
+-Fork o projeto
 
-Visualização de agendamentos (modo admin)
+-Crie uma branch: git checkout -b nova-funcionalidade
 
-Design responsivo
+-Commit suas alterações: git commit -m 'feat: adiciona nova funcionalidade'
 
-🤝 Contribuindo
-Contribuições são bem-vindas!
+-Push na branch: git push origin nova-funcionalidade
 
-Fork o projeto
+-Abra um Pull Request
 
-Crie uma branch: git checkout -b nova-funcionalidade
+## 📄 Licença
+-Este projeto está sob a licença MIT. Veja LICENSE para mais informações.
 
-Commit suas alterações: git commit -m 'feat: adiciona nova funcionalidade'
-
-Push na branch: git push origin nova-funcionalidade
-
-Abra um Pull Request
-
-📄 Licença
-Este projeto está sob a licença MIT. Veja LICENSE para mais informações.
-
-👨‍💻 Autor
-Eric Galvão
+## 👨‍💻 Autor
+# Eric Galvão
 📧 Email: ericagoficial@gmail.com
 🔗 LinkedIn: https://www.linkedin.com/in/eric-galvao/
+
 
