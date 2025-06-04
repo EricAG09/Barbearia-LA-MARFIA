@@ -78,9 +78,10 @@
   }
   
   .text-shadow {
-    text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.502);
   }
 }
+
 
 
 /* Start Header*/
@@ -129,3 +130,13 @@
   }
   }
 }
+
+.scroll-indicator {
+  padding-bottom: 40px;
+  color: 0 0 10px;
+  color: rgba(212, 175, 55, 1);
+  @media (max-width: 768px) {
+    padding-bottom: 80px;
+  };
+}
+
