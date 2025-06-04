@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Logo from "@/assets/logo.png"; // Replace with your logo path
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -39,6 +40,11 @@ const Header = () => {
     >
       <div className="container mx-auto px-4 flex justify-between items-center">
         <a href="#home" className="flex items-center">
+          <img
+            src={Logo} // Replace with your logo path
+            alt="Barber Shop Logo"
+            className="h-10 w-auto"
+          />
           <span className="font-serif text-2xl md:text-3xl font-bold text-barber-gold">
             LA-<span className="text-white">MAFIA</span>
           </span>

@@ -1,73 +1,101 @@
-# Welcome to your Lovable project
+# 💈 Barbearia La Marfia
 
-## Project info
+[![Vercel Status](https://img.shields.io/website?url=https%3A%2F%2Fbarbearia-la-marfia.vercel.app&style=for-the-badge&label=Deploy&logo=vercel)](https://barbearia-la-marfia.vercel.app/)
+![Made with React](https://img.shields.io/badge/Made%20with-React-61DAFB?style=for-the-badge&logo=react)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-38B2AC?style=for-the-badge&logo=tailwindcss)
+![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase)
 
-**URL**: https://lovable.dev/projects/689e1ef0-77be-43dd-b6ba-3dc02fd2cce9
+Sistema moderno de agendamentos online para barbearias, desenvolvido com **React**, **TypeScript**, **Tailwind CSS** e **Supabase**. Os clientes podem visualizar os serviços e agendar horários, enquanto os administradores gerenciam tudo com facilidade.
 
-## How can I edit this code?
+🔗 Acesse o projeto: [barbearia-la-marfia.vercel.app](https://barbearia-la-marfia.vercel.app/)
 
-There are several ways of editing your application.
+---
 
-**Use Lovable**
+## 📸 Demonstração
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/689e1ef0-77be-43dd-b6ba-3dc02fd2cce9) and start prompting.
+### 💻 Home
+![home](https://user-images.githubusercontent.com/0000000/home-page.png)
 
-Changes made via Lovable will be committed automatically to this repo.
+### 📅 Agendamento
+![agendamento](https://user-images.githubusercontent.com/0000000/booking-form.png)
 
-**Use your preferred IDE**
+### 🎥 Ou veja a demonstração em vídeo:
+[Assista no Loom](https://www.loom.com/share/exemplo)
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+---
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## 🚀 Tecnologias Utilizadas
 
-Follow these steps:
+- ⚡ **Vite**
+- 🧠 **React + TypeScript**
+- 🎨 **Tailwind CSS**
+- 💻 **shadcn/ui**
+- 🔐 **Supabase**
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+---
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+## 🧑‍💻 Como rodar localmente
 
-# Step 3: Install the necessary dependencies.
-npm i
+### Pré-requisitos
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+- Node.js
+- Git
+- Yarn (ou npm)
+
+```bash
+# 1. Clone o repositório
+git clone https://github.com/seu-usuario/seu-repositorio.git
+
+# 2. Entre na pasta do projeto
+cd barbearia-la-marfia
+
+# 3. Instale as dependências
+yarn install
+# ou npm install
+
+# 4. Inicie o servidor
+yarn dev
+# ou npm run dev
+
+
 ```
 
-**Edit a file directly in GitHub**
+## 🛰 Deploy
+- Hospedado automaticamente via Vercel.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## 💡 Funcionalidades
+-Cadastro de serviços
 
-**Use GitHub Codespaces**
+-Agendamento de horários
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+-Validação de campos
 
-## What technologies are used for this project?
+-Visualização de agendamentos (Via Whatsapp)
 
-This project is built with:
+-Design responsivo
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+-Integração com Whatsapp
 
-## How can I deploy this project?
+## 🤝 Contribuindo
+-Contribuições são bem-vindas!
 
-Simply open [Lovable](https://lovable.dev/projects/689e1ef0-77be-43dd-b6ba-3dc02fd2cce9) and click on Share -> Publish.
+-Fork o projeto
 
-## Can I connect a custom domain to my Lovable project?
+-Crie uma branch: git checkout -b nova-funcionalidade
 
-Yes, you can!
+-Commit suas alterações: git commit -m 'feat: adiciona nova funcionalidade'
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+-Push na branch: git push origin nova-funcionalidade
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+-Abra um Pull Request
+
+## 📄 Licença
+-Este projeto está sob a licença MIT. Veja LICENSE para mais informações.
+
+## 👨‍💻 Autor
+# Eric Galvão
+📧 Email: ericagoficial@gmail.com
+🔗 LinkedIn: https://www.linkedin.com/in/eric-galvao/
+
+
