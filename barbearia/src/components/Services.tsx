@@ -6,8 +6,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Scissors } from "lucide-react";
+import { Scissors, ChevronDown, ChevronUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useState } from "react";
 
 const servicesList = [
   {
@@ -119,6 +120,10 @@ const servicesList = [
 ];
 
 const Services = () => {
+  const [showAll, setShowAll] = useState(false);
+  const displayedServices = showAll ? servicesList : servicesList.slice(0, 3);
+  const hasMoreServices = servicesList.length > 3;
+
   return (
     <section
       id="services"
@@ -141,7 +146,7 @@ const Services = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {servicesList.map((service) => (
+          {displayedServices.map((service) => (
             <Card
               key={service.id}
               className="bg-barber-dark border-barber-gold/20 hover:border-barber-gold/50 transition-all duration-300 overflow-hidden group"
@@ -176,6 +181,28 @@ const Services = () => {
             </Card>
           ))}
         </div>
+
+        {hasMoreServices && (
+          <div className="text-center mt-8">
+            <Button
+              onClick={() => setShowAll(!showAll)}
+              className="bg-transparent border border-barber-gold/50 text-barber-gold hover:bg-barber-gold hover:text-barber-dark transition-all duration-300 px-8 py-3"
+              variant="outline"
+            >
+              {showAll ? (
+                <>
+                  <ChevronUp className="mr-2 h-4 w-4" />
+                  Mostrar menos
+                </>
+              ) : (
+                <>
+                  <ChevronDown className="mr-2 h-4 w-4" />
+                  Mostrar mais
+                </>
+              )}
+            </Button>
+          </div>
+        )}
       </div>
     </section>
   );
