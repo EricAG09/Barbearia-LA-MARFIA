@@ -166,7 +166,7 @@ const Services = () => {
               </CardContent>
               <CardFooter>
                 <Button
-                  className="w-full bg-transparent border border-barber-gold/50 text-barber-gold hover:bg-barber-gold hover:text-barber-dark transition-all duration-300"
+                  className=" w-full bg-transparent border border-barber-gold/50 text-barber-gold hover:bg-barber-gold hover:text-barber-dark transition-all duration-300"
                   variant="outline"
                   asChild
                 >
