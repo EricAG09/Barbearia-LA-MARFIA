@@ -44,6 +44,14 @@
   body {
     @apply bg-barber-dark text-foreground antialiased;
   }
+
+  @font-face {
+    font-family: 'TheFrashPrince';
+    src: url('./assets/fonts/GraffitiYouth-Regular.otf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
 }
 
 @layer components {
@@ -70,6 +78,65 @@
   }
   
   .text-shadow {
-    text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.502);
   }
 }
+
+
+
+/* Start Header*/
+
+.header {
+  > div {
+    img {
+      width: 60%;
+      height: auto;
+    }
+  }
+}
+
+/* End Header */
+
+/* Start Hero */
+
+.hero {
+    h1 {
+      font-weight: 500;
+      font-size: 3.5rem;
+      
+      span {
+        -webkit-text-stroke: 1px rgb(58, 54, 54);
+      }
+  }
+
+  button {
+    background-color: black;
+    border: 1px solid yellowgreen;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: normal;
+    -webkit-text-stroke: 0.5px black;
+  }
+}
+
+/* End Hero */
+
+/* Start Services */
+
+.services {
+  > div > div {
+      h2 {
+    font-size: 3rem;
+  }
+  }
+}
+
+.scroll-indicator {
+  padding-bottom: 40px;
+  color: 0 0 10px;
+  color: rgba(212, 175, 55, 1);
+  @media (max-width: 768px) {
+    padding-bottom: 80px;
+  };
+}
+

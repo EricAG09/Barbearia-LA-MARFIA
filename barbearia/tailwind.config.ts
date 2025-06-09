@@ -74,6 +74,7 @@ export default {
 			fontFamily: {
 				sans: ['Montserrat', 'sans-serif'],
 				serif: ['Playfair Display', 'serif'],
+				personalizada: ['TheFrashPrince', 'sans-serif'],
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

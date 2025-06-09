@@ -18,7 +18,7 @@ const About = () => {
       <div className="container mx-auto relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>
-            <h2 className="font-serif text-3xl md:text-4xl font-bold mb-4">
+            <h2 className="font-personalizada text-5xl md:text-4xl font-thin mb-4">
               Sobre <span className="text-barber-gold">Nós</span>
             </h2>
             <div className="flex items-center gap-3 mb-6">
@@ -27,13 +27,18 @@ const About = () => {
               <div className="h-px w-12 bg-barber-gold"></div>
             </div>
             <p className="text-gray-300 mb-6">
-              A Master Barber foi fundada em 2015 com a missão de resgatar a tradição das barbearias clássicas, 
-              combinando técnicas tradicionais com tendências modernas. Nosso espaço foi cuidadosamente planejado 
-              para oferecer uma experiência completa de cuidados masculinos.
+              The Barber Prince of Jacu – Onde o estilo é rei! 👑✂️
+              Fundada em 2021, a The Barber Prince of Jacu é muito mais do que uma 
+              barbearia — é um espaço onde o corte é afiado, o atendimento é de 
+              responsa e a vibe é digna de um verdadeiro príncipe.
+              Inspirada no icônico seriado dos anos 90, The Fresh Prince of Bel-Air, 
+              nossa barbearia une a nostalgia da velha escola com o melhor do estilo atual. 
+              Aqui, cada cliente é tratado como realeza, em um ambiente descontraído, criativo e cheio de personalidade.
             </p>
             <p className="text-gray-300 mb-6">
-              Contamos com uma equipe de profissionais altamente qualificados, apaixonados por seu ofício 
-              e constantemente atualizados com as últimas tendências em cortes e tratamentos.
+              Do corte clássico ao degradê moderno, do pezinho alinhado ao atendimento de primeira, 
+              nossa missão é deixar você sempre no grau.
+              Seja bem-vindo ao seu novo trono. Aqui, o estilo é lei e você é o príncipe.
             </p>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
