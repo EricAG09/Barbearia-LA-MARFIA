@@ -45,9 +45,6 @@ const Header = () => {
             alt="Barber Shop Logo"
             className="h-10 w-auto"
           />
-          <span className="font-serif text-2xl md:text-3xl font-bold text-barber-gold">
-            LA-<span className="text-white">MAFIA</span>
-          </span>
         </a>
 
         {/* Desktop Navigation */}

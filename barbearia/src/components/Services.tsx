@@ -131,8 +131,8 @@ const Services = () => {
     >
       <div className="container mx-auto">
         <div className="text-center mb-12">
-          <h2 className="font-serif text-3xl md:text-4xl font-bold mb-4">
-            Nossos <span className="text-barber-gold">Serviços</span>
+          <h2 className="font-personalizada text-3xl md:text-4xl font-bold mb-4">
+            Nossos <span className="text-green-600">Serviços</span>
           </h2>
           <div className="flex items-center justify-center gap-3 mb-6">
             <div className="h-px w-12 bg-barber-gold"></div>

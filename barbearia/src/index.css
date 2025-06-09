@@ -103,9 +103,10 @@
     h1 {
       font-weight: 500;
       font-size: 3.5rem;
+      -webkit-text-stroke: 1px white;
       
       span {
-        -webkit-text-stroke: 1px rgb(58, 54, 54);
+        -webkit-text-stroke: 1px white;
       }
   }
 

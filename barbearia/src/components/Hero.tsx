@@ -18,8 +18,8 @@ const Hero = () => {
 
       {/* Content */}
       <div className="container mx-auto px-4 relative z-10 text-center">
-        <h1 className="font-personalizada text-4xl md:text-6xl lg:text-7xl font-bold mb-6 text-white animate-fade-in">
-          ESTILO & <span className="text-barber-gold border-cyan-50">EXCELÊNCIA</span>
+        <h1 className="font-personalizada text-4xl md:text-6xl lg:text-7xl font-bold mb-6 text-green-600 animate-fade-in">
+          ESTILO <span className="text-indigo-700 border-cyan-50"> & </span> <span className="text-green-600 border-cyan-50">EXCELÊNCIA</span>
         </h1>
         <p className="text-gray-300 text-lg md:text-xl max-w-2xl mx-auto mb-8 animate-fade-in" style={{ animationDelay: "0.2s" }}>
           Muito mais que uma barbearia. Uma experiência única de cuidado
