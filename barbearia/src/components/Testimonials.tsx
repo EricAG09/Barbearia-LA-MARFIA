@@ -87,8 +87,8 @@ const Testimonials = () => {
     >
       <div className="container mx-auto">
         <div className="text-center mb-12">
-          <h2 className="font-serif text-3xl md:text-4xl font-bold mb-4">
-            O Que <span className="text-barber-gold">Dizem</span> Sobre Nós
+          <h2 className="font-personalizada text-green-600 text-4xl md:text-4xl font-bold mb-4 border-cyan-50">
+            O Que <span className="">Dizem</span> Sobre Nós
           </h2>
           <div className="flex items-center justify-center gap-3 mb-6">
             <div className="h-px w-12 bg-barber-gold"></div>
@@ -118,7 +118,7 @@ const Testimonials = () => {
                         />
                       </div>
                       <div>
-                        <h3 className="font-semibold text-barber-gold">
+                        <h3 className="font-personalizada text-green-600 text-3xl font-light mb-2">
                           {testimonial.name}
                         </h3>
                         <div className="flex text-barber-gold">

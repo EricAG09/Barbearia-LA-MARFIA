@@ -88,7 +88,7 @@ const Booking = () => {
     const formattedDate = format(values.date, "dd/MM/yyyy", { locale: ptBR });
     
     const message = `*Novo Agendamento - Master Barber*\n\n` +
-      `👤 *Nome:* ${values.name}\n` +
+      `🙍🏻‍♂️ *Nome:* ${values.name}\n` +
       `📞 *Telefone:* ${values.phone}\n` +
       `✂️ *Serviço:* ${serviceName}\n` +
       `📅 *Data:* ${formattedDate}\n` +
@@ -97,6 +97,16 @@ const Booking = () => {
 
     const whatsappUrl = `https://wa.me/5585994066861?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
+  };
+
+  const resetForm = () => {
+    form.reset({
+      name: "",
+      phone: "",
+      service: "",
+      time: "",
+    });
+    setDate(undefined);
   };
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
@@ -140,6 +150,7 @@ const Booking = () => {
         sendToWhatsApp(values);
         form.reset();
         setDate(undefined);
+        resetForm();
       }, 1500);
       
     } catch (error) {
@@ -158,12 +169,12 @@ const Booking = () => {
   return (
     <section
       id="booking"
-      className="section-padding bg-gradient-to-b from-barber-dark to-barber-darker"
+      className="booking section-padding bg-gradient-to-b from-barber-dark to-barber-darker"
     >
       <div className="container mx-auto">
         <div className="text-center mb-12">
-          <h2 className="font-serif text-3xl md:text-4xl font-bold mb-4">
-            Agende seu <span className="text-barber-gold">Horário</span>
+          <h2 className="font-personalizada text-4xl md:text-4xl font-bold mb-4 border-cyan-50">
+            Agende seu <span className="">Horário</span>
           </h2>
           <div className="flex items-center justify-center gap-3 mb-6">
             <div className="h-px w-12 bg-barber-gold"></div>
@@ -183,7 +194,7 @@ const Booking = () => {
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-gray-300">Nome</FormLabel>
+                    <FormLabel className="name font-personalizada text-gray-300">Nome</FormLabel>
                     <FormControl>
                       <Input 
                         placeholder="Seu nome completo" 
@@ -201,7 +212,7 @@ const Booking = () => {
                 name="phone"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-gray-300">Telefone</FormLabel>
+                    <FormLabel className="name font-personalizada text-gray-300">Telefone</FormLabel>
                     <FormControl>
                       <Input 
                         placeholder="(85) 99999-9999" 
@@ -219,7 +230,7 @@ const Booking = () => {
                 name="service"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-gray-300">Serviço</FormLabel>
+                    <FormLabel className="name font-personalizada text-gray-300">Serviço</FormLabel>
                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
                         <SelectTrigger className="bg-barber-dark border-barber-gold/20 text-white focus:ring-barber-gold">
@@ -244,7 +255,7 @@ const Booking = () => {
                 name="date"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel className="text-gray-300">Data</FormLabel>
+                    <FormLabel className="name font-personalizada text-gray-300">Data</FormLabel>
                     <Popover>
                       <PopoverTrigger asChild>
                         <FormControl>
@@ -299,7 +310,7 @@ const Booking = () => {
                 name="time"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-gray-300">
+                    <FormLabel className="name font-personalizada text-gray-300">
                       Horário {date && (
                         <span className="text-barber-gold text-sm">
                           ({getAvailableTimeSlots(date).length} disponíveis)
@@ -333,14 +344,14 @@ const Booking = () => {
               <Button 
                 type="submit" 
                 disabled={isSubmitting}
-                className="w-full bg-barber-gold text-barber-dark hover:bg-barber-gold/80"
+                className="w-full border-barber-gold bg-barber-gold text-white hover:bg-barber-dark/10 animate-bounce"
               >
                 {isSubmitting ? (
                   "Processando agendamento..."
                 ) : (
                   <>
-                    <MessageCircle size={16} className="mr-2" />
-                    Confirmar Agendamento
+                    <MessageCircle size={20} className="mr-2" />
+                    <span className="message font-personalizada">Agendar</span>
                   </>
                 )}
               </Button>

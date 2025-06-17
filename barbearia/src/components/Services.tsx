@@ -15,105 +15,63 @@ const servicesList = [
     id: 1,
     name: "Corte Social",
     price: "R$20",
-    image: "https://images.unsplash.com/photo-1599351431202-1e0f0137899a?q=80&w=1888",
+    image: "/social.JPEG",
     description: "Corte de cabelo clássico com acabamento perfeito e lavagem.",
   },
   {
     id: 2,
-    name: "Social com Barba",
-    price: "R$30",
-    image: "https://images.unsplash.com/photo-1621605815971-fbc98d665033?q=80&w=2070",
-    description: "Modelagem de barba com toalha quente, óleo e finalização.",
-  },
-  {
-    id: 3,
-    name: "Social com Barba e Pigmentação",
-    price: "R$40",
-    image: "https://images.unsplash.com/photo-1554351771-995425eda3ce?q=80&w=1972",
-    description: "Corte de cabelo + barba e pigmentação para realçar a cor do seu cabelo.",
-  },
-  {
-    id: 4,
     name: "Corte Degradê",
     price: "R$30",
-    image: "https://images.unsplash.com/photo-1599351431202-1e0f0137899a?q=80&w=1888",
+    image: "/degrade.jpeg",
     description: "Corte de cabelo com degradê com acabamento perfeito e lavagem.",
   },
   {
-    id: 5,
-    name: "Corte degradê e sobrancelha",
-    price: "R$30",
-    image: "https://images.unsplash.com/photo-1589710751893-f9a6770ad71b?q=80&w=1887",
-    description: "Corte de cabelo com degradê e sobrancelha com acabamento perfeito e lavagem.",
-  },
-  {
-    id: 6,
+    id: 3,
     name: "Corte degradê e barba",
     price: "R$35",
-    image: "https://images.unsplash.com/photo-1589710751893-f9a6770ad71b?q=80&w=1887",
+    image: "/degrade+barba.jpg",
     description: "Corte de cabelo com degradê e barba com acabamento perfeito e lavagem.",
   },
   {
-    id: 7,
-    name: "Corte degradê com Pigmentação",
-    price: "R$35",
-    image: "https://images.unsplash.com/photo-1589710751893-f9a6770ad71b?q=80&w=1887",
-    description: "Ideal para quem busca um visual refinado, com estilo marcante e aparência impecável todos os dias.",
-  },
-  {
-    id: 8,
-    name: "Corte Degradê com Barba e Pigmentação", 
-    price: "R$45",
-    image: "https://images.unsplash.com/photo-1589710751893-f9a6770ad71b?q=80&w=1887",
-    description: "Ideal para homens que buscam estilo, confiança e presença em qualquer ambiente.",
-  },
-  {
-    id: 9,
-    name: "Corte Degradê com Barba, Sobrancelha e Pigmentação",
-    price: "R$50",
-    image: "https://images.unsplash.com/photo-1589710751893-f9a6770ad71b?q=80&w=1887",
-    description: "O resultado é um estilo refinado, de alto padrão, ideal para qualquer ocasião do dia de trabalho ao evento mais especial.",
-  },
-  {
-    id: 10,
-    name: "Corte Infantil",
+    id: 4,
+    name: "Degradê + pigmentação",
     price: "R$30",
-    image: "https://images.unsplash.com/photo-1589710751893-f9a6770ad71b?q=80&w=1887",
+    image: "/degrade+pigmentação.jpg",
     description: "Com técnicas modernas e um toque de estilo, o corte deixa o visual do seu filho ainda mais bonito",
   },
   {
-    id: 12,
-    name: "Pezinho",
-    price: "R$5",
-    image: "https://images.unsplash.com/photo-1589710751893-f9a6770ad71b?q=80&w=1887",
-    description: "Pequeno no nome, gigante no impacto.",
+    id: 4,
+    name: "Corte Infantil",
+    price: "R$30",
+    image: "/infantil2.JPG",
+    description: "Com técnicas modernas e um toque de estilo, o corte deixa o visual do seu filho ainda mais bonito",
   },
   {
-    id: 13,
+    id: 5,
     name: "Sobrancelha",
     price: "R$5",
-    image: "https://images.unsplash.com/photo-1589710751893-f9a6770ad71b?q=80&w=1887",
+    image: "/sobrancelha.jpg",
     description: "A sobrancelha é a moldura do rosto e pode fazer toda a diferença no seu visual.",
   },
   {
-    id: 14,
+    id: 6,
     name: "Barba",
     price: "R$10",
-    image: "https://images.unsplash.com/photo-1589710751893-f9a6770ad71b?q=80&w=1887",
+    image: "/barba.jpeg",
     description: "A barba é um dos principais elementos do visual masculino e pode fazer toda a diferença na sua aparência.",
   },
   {
-    id: 15,
+    id: 7,
     name: "Platinado",
     price: "R$100",
-    image: "https://images.unsplash.com/photo-1589710751893-f9a6770ad71b?q=80&w=1887",
+    image: "/platinado.JPEG",
     description: "O platinado é uma técnica de coloração que deixa os cabelos com um tom loiro muito claro, quase branco.",
   },
   {
-    id: 16,
+    id: 8,
     name: "Luzes",
     price: "R$80",
-    image: "https://images.unsplash.com/photo-1589710751893-f9a6770ad71b?q=80&w=1887",
+    image: "/luzes.jpeg",
     description: "As luzes são uma técnica de coloração que deixa mechas do cabelos com um tom mais claro e iluminado.",
   },
 
@@ -121,25 +79,25 @@ const servicesList = [
 
 const Services = () => {
   const [showAll, setShowAll] = useState(false);
-  const displayedServices = showAll ? servicesList : servicesList.slice(0, 3);
+  const displayedServices = showAll ? servicesList : servicesList.slice(0, 4);
   const hasMoreServices = servicesList.length > 3;
 
   return (
     <section
       id="services"
-      className="section-padding bg-gradient-to-b from-barber-darker to-barber-dark"
+      className="services bg-gradient-to-b from-barber-darker to-barber-dark"
     >
       <div className="container mx-auto">
         <div className="text-center mb-12">
-          <h2 className="font-personalizada text-3xl md:text-4xl font-bold mb-4">
-            Nossos <span className="text-green-600">Serviços</span>
+          <h2 className="font-personalizada text-4xl md:text-4xl font-bold mb-4 border-cyan-50">
+            Nossos <span className="">Serviços</span>
           </h2>
           <div className="flex items-center justify-center gap-3 mb-6">
             <div className="h-px w-12 bg-barber-gold"></div>
             <Scissors size={20} className="text-barber-gold" />
             <div className="h-px w-12 bg-barber-gold"></div>
           </div>
-          <p className="text-gray-400 max-w-2xl mx-auto">
+          <p className="text-white max-w-2xl mx-auto">
             Oferecemos os melhores serviços de barbearia com profissionais
             experientes e produtos de alta qualidade.
           </p>
@@ -159,9 +117,9 @@ const Services = () => {
                 />
               </div>
               <CardHeader>
-                <CardTitle className="text-xl font-serif flex justify-between items-center">
+                <CardTitle className="card-title text-xl font-personalizada flex justify-between items-center">
                   <span>{service.name}</span>
-                  <span className="text-barber-gold font-bold">{service.price}</span>
+                  <span className="text-barber-gold font-personalizada">{service.price}</span>
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -169,9 +127,9 @@ const Services = () => {
                   {service.description}
                 </CardDescription>
               </CardContent>
-              <CardFooter>
+              <CardFooter className="card-footer">
                 <Button
-                  className=" w-full bg-transparent border border-barber-gold/50 text-barber-gold hover:bg-barber-gold hover:text-barber-dark transition-all duration-300"
+                  className=" w-full bg-transparent border font-personalizada border-barber-gold/50 text-barber-gold hover:bg-barber-gold hover:text-barber-dark transition-all duration-300"
                   variant="outline"
                   asChild
                 >
@@ -186,7 +144,7 @@ const Services = () => {
           <div className="text-center mt-8">
             <Button
               onClick={() => setShowAll(!showAll)}
-              className="bg-transparent border border-barber-gold/50 text-barber-gold hover:bg-barber-gold hover:text-barber-dark transition-all duration-300 px-8 py-3"
+              className="border border-barber-gold/50 animate-bounce  bg-barber-gold text-barber-dark transition-all duration-800 px-8 py-3"
               variant="outline"
             >
               {showAll ? (

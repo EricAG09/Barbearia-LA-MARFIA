@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { url } from "inspector";
 
 const Hero = () => {
   return (
@@ -10,9 +11,8 @@ const Hero = () => {
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage:
-            "url('https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=2070')",
-          opacity: "0.4",
+          backgroundImage: "url('/bg2.JPG')",
+          opacity: "0.2",
         }}
       ></div>
 
@@ -33,7 +33,6 @@ const Hero = () => {
             <a href="#booking">Agendar Horário</a>
           </Button>
           <Button
-            variant="outline"
             size="lg"
             className="font-personalizada border-barber-gold text-barber-gold hover:bg-barber-gold/10"
           >

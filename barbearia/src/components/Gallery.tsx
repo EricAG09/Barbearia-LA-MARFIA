@@ -9,32 +9,32 @@ import { GalleryHorizontal } from "lucide-react";
 const galleryImages = [
   {
     id: 1,
-    src: "https://images.unsplash.com/photo-1585747860715-2ba37e788b70?q=80&w=2074",
+    src: "/americano 3.jpeg",
     alt: "Interior da barbearia",
   },
   {
     id: 2,
-    src: "https://images.unsplash.com/photo-1621605815971-fbc98d665033?q=80&w=2070",
+    src: "/desenho 3.jpeg",
     alt: "Cliente recebendo serviço de barba",
   },
   {
     id: 3,
-    src: "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=2070",
+    src: "/degrade.jpeg",
     alt: "Ferramentas de barbearia",
   },
   {
     id: 4,
-    src: "https://images.unsplash.com/photo-1622296089863-eb7fc530daa8?q=80&w=2070",
+    src: "/desenho.jpeg",
     alt: "Barbeiro trabalhando",
   },
   {
     id: 5,
-    src: "https://images.unsplash.com/photo-1635273051856-9a1d4b10a7cc?q=80&w=1974",
+    src: "/infantil 2.jpeg",
     alt: "Detalhes da barbearia",
   },
   {
     id: 6,
-    src: "https://images.unsplash.com/photo-1634449571010-02389ed7fbe2?q=80&w=1770",
+    src: "/desenho 4.jpeg",
     alt: "Cliente feliz após corte",
   },
 ];
@@ -47,10 +47,11 @@ const Gallery = () => {
       id="gallery"
       className="gallery section-padding bg-barber-dark"
     >
+
       <div className="container mx-auto">
         <div className="text-center mb-12">
-          <h2 className="font-serif text-3xl md:text-4xl font-bold mb-4">
-            Nossa <span className="text-barber-gold">Galeria</span>
+          <h2 className="font-personalizada text-4xl md:text-4xl font-bold mb-4 border-cyan-50">
+            Nossa <span className="">Galeria</span>
           </h2>
           <div className="flex items-center justify-center gap-3 mb-6">
             <div className="h-px w-12 bg-barber-gold"></div>

@@ -1,5 +1,6 @@
 import { Facebook, Instagram, MapPin, Phone, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import logo from "../assets/logo.png"; 
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -10,18 +11,23 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Logo and description */}
           <div>
-            <a href="#home" className="inline-block mb-4">
-              <span className="font-serif text-2xl font-bold text-barber-gold">
-                Master<span className="text-white">Barber</span>
-              </span>
-            </a>
-            <p className="text-gray-400 mb-4">
-              Muito mais que uma barbearia. Uma experiência única de cuidado
-              e estilo para o homem moderno.
-            </p>
+            <div className="card">
+              <a href="#home" className="inline-block mb-4">
+                <img
+                  src={logo}
+                  alt="Barber Prince Logo"
+                  className="h-12 w-auto mb-2"
+                />
+              </a>
+              <p className="text-gray-400 mb-4">
+                Muito mais que uma barbearia. Uma experiência única de cuidado
+                e estilo para o homem moderno.
+              </p>
+            </div>
+            
             <div className="flex space-x-4">
               <a
-                href="https://instagram.com"
+                href="https://www.instagram.com/thebarberprinceofjacu/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-barber-gold hover:text-white transition-colors"
@@ -48,35 +54,35 @@ const Footer = () => {
           </div>
 
           {/* Links */}
-          <div>
-            <h3 className="text-xl font-serif font-semibold mb-4 text-barber-gold">Links Rápidos</h3>
+          <div className="links">
+            <h3 className="font-personalizada text-green-600 text-3xl font-light mb-2">Links Rápidos</h3>
             <ul className="space-y-2">
               <li>
-                <a href="#home" className="text-gray-400 hover:text-barber-gold transition-colors">Home</a>
+                <a href="#home" className="font-personalizada text-gray-400 hover:text-barber-gold transition-colors">Home</a>
               </li>
               <li>
-                <a href="#services" className="text-gray-400 hover:text-barber-gold transition-colors">Serviços</a>
+                <a href="#services" className="font-personalizada text-gray-400 hover:text-barber-gold transition-colors">Serviços</a>
               </li>
               <li>
-                <a href="#gallery" className="text-gray-400 hover:text-barber-gold transition-colors">Galeria</a>
+                <a href="#gallery" className="font-personalizada text-gray-400 hover:text-barber-gold transition-colors">Galeria</a>
               </li>
               <li>
-                <a href="#about" className="text-gray-400 hover:text-barber-gold transition-colors">Sobre</a>
+                <a href="#about" className="font-personalizada text-gray-400 hover:text-barber-gold transition-colors">Sobre</a>
               </li>
               <li>
-                <a href="#booking" className="text-gray-400 hover:text-barber-gold transition-colors">Agendamento</a>
+                <a href="#booking" className="font-personalizada text-gray-400 hover:text-barber-gold transition-colors">Agendamento</a>
               </li>
             </ul>
           </div>
 
           {/* Contact */}
-          <div>
-            <h3 className="text-xl font-serif font-semibold mb-4 text-barber-gold">Contato</h3>
+          <div className="contact">
+            <h3 className="font-personalizada text-green-600 text-3xl font-light mb-2">Contato</h3>
             <ul className="space-y-3">
               <li className="flex items-center space-x-3">
                 <MapPin size={18} className="text-barber-gold" />
                 <span className="text-gray-400">
-                  Av. Paulista, 1000, São Paulo - SP
+                  Av. 25 de Janeiro, Apuiarés - CE
                 </span>
               </li>
               <li className="flex items-center space-x-3">
@@ -87,20 +93,20 @@ const Footer = () => {
           </div>
 
           {/* Hours */}
-          <div>
-            <h3 className="text-xl font-serif font-semibold mb-4 text-barber-gold">Horário de Funcionamento</h3>
+          <div className="hours">
+            <h3 className="font-personalizada text-green-600 text-3xl font-light mb-2">Horário de Funcionamento</h3>
             <ul className="space-y-2">
               <li className="flex justify-between">
                 <span className="text-gray-400">Segunda - Sexta</span>
-                <span className="text-barber-gold">09:00 - 20:00</span>
+                <span className="hours-content font-personalizada text-green-600 ">09:00 - 20:00</span>
               </li>
               <li className="flex justify-between">
                 <span className="text-gray-400">Sábado</span>
-                <span className="text-barber-gold">09:00 - 19:00</span>
+                <span className="font-personalizada text-green-600">09:00 - 19:00</span>
               </li>
               <li className="flex justify-between">
                 <span className="text-gray-400">Domingo</span>
-                <span className="text-barber-gold">Fechado</span>
+                <span className="font-personalizada text-green-600">Fechado</span>
               </li>
             </ul>
 
@@ -120,7 +126,7 @@ const Footer = () => {
         <hr className="border-barber-gold/20 my-8" />
 
         <div className="text-center text-gray-500 text-sm">
-          <p>&copy; {currentYear} Master Barber. Todos os direitos reservados.</p>
+          <p>&copy; {currentYear} Barber Prince. Todos os direitos reservados.</p>
         </div>
       </div>
     </footer>

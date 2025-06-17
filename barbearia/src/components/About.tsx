@@ -9,7 +9,7 @@ const About = () => {
       {/* Background overlay */}
       <div className="absolute inset-0 opacity-10">
         <img
-          src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?q=80&w=2070"
+          src="/bg.JPG"
           alt="Background"
           className="w-full h-full object-cover"
         />
@@ -18,8 +18,8 @@ const About = () => {
       <div className="container mx-auto relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>
-            <h2 className="font-personalizada text-5xl md:text-4xl font-thin mb-4">
-              Sobre <span className="text-barber-gold">Nós</span>
+            <h2 className="font-personalizada text-5xl md:text-4xl font-bold mb-4">
+              Sobre <span className="">Nós</span>
             </h2>
             <div className="flex items-center gap-3 mb-6">
               <div className="h-px w-12 bg-barber-gold"></div>
@@ -43,25 +43,25 @@ const About = () => {
             
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
               <div className="bg-barber-dark/50 backdrop-blur-sm border border-barber-gold/10 p-4 rounded-lg">
-                <h3 className="text-barber-gold text-lg font-semibold mb-2">Ambiente Premium</h3>
+                <h3 className="font-personalizada text-green-600 text-3xl font-bold mb-2">Ambiente Premium</h3>
                 <p className="text-gray-400 text-sm">
                   Espaço sofisticado com poltronas confortáveis e música ambiente selecionada.
                 </p>
               </div>
               <div className="bg-barber-dark/50 backdrop-blur-sm border border-barber-gold/10 p-4 rounded-lg">
-                <h3 className="text-barber-gold text-lg font-semibold mb-2">Profissionais Experientes</h3>
+                <h3 className="font-personalizada text-green-600 text-3xl font-bold mb-2">Profissional Experiente</h3>
                 <p className="text-gray-400 text-sm">
                   Nossa equipe tem anos de experiência e formação especializada.
                 </p>
               </div>
               <div className="bg-barber-dark/50 backdrop-blur-sm border border-barber-gold/10 p-4 rounded-lg">
-                <h3 className="text-barber-gold text-lg font-semibold mb-2">Produtos Exclusivos</h3>
+                <h3 className="font-personalizada text-green-600 text-3xl font-bold mb-2">Produtos Exclusivos</h3>
                 <p className="text-gray-400 text-sm">
                   Utilizamos apenas produtos de alta qualidade para os melhores resultados.
                 </p>
               </div>
               <div className="bg-barber-dark/50 backdrop-blur-sm border border-barber-gold/10 p-4 rounded-lg">
-                <h3 className="text-barber-gold text-lg font-semibold mb-2">Atendimento Personalizado</h3>
+                <h3 className="font-personalizada text-green-600 text-3xl font-bold mb-2">Atendimento Personalizado</h3>
                 <p className="text-gray-400 text-sm">
                   Cada cliente recebe uma consulta para entender suas necessidades específicas.
                 </p>
@@ -72,7 +72,7 @@ const About = () => {
           <div className="relative">
             <div className="relative z-20 rounded-lg overflow-hidden border-2 border-barber-gold/20">
               <img
-                src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=2070"
+                src="/barbeiro2.png"
                 alt="Nossa Barbearia"
                 className="w-full h-full object-cover"
               />

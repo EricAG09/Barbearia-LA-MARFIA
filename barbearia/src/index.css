@@ -117,7 +117,9 @@
     font-size: 1.5rem;
     font-weight: normal;
     -webkit-text-stroke: 0.5px black;
+
   }
+
 }
 
 /* End Hero */
@@ -125,12 +127,55 @@
 /* Start Services */
 
 .services {
-  > div > div {
-      h2 {
-    font-size: 3rem;
+  position: relative; /* Necessário para posicionar o ::before */
+  overflow: hidden;
+
+  /* Fundo com opacidade */
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url('/bg.JPG');
+    background-size: cover;
+    opacity: 0.3; /* 👈 Controla a opacidade só do fundo */
+    z-index: 0;
   }
+
+  .container {
+    position: relative; /* Para que o conteúdo fique sobre o ::before */
+    z-index: 1;
+    padding-top: 20px;
+
+    h2 {
+      color: rgb(22 163 74 / var(--tw-text-opacity, 1));
+      font-weight: 500;
+      font-size: 3.5rem;
+      -webkit-text-stroke: 1px white;
+
+      span {
+        -webkit-text-stroke: 1px white;
+      }
+    }
+  }
+
+  .card-title {
+    color: rgb(22 163 74 / var(--tw-text-opacity, 1));
+    font-weight: 400;
+    font-size: 2rem;
+    -webkit-text-stroke: 0.1px blue;
+  }
+
+  .card-footer {
+    a {
+      font-size: 2rem;
+      color: rgb(22 163 74 / var(--tw-text-opacity, 1));
+      -webkit-text-stroke: 0.1px blue;
+    }
   }
 }
+
+
+/* End Services */
 
 .scroll-indicator {
   padding-bottom: 40px;
@@ -141,3 +186,167 @@
   };
 }
 
+
+/* Start Galery */
+
+.gallery {
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url('/bg2.JPG'); /* Ou troque para outra imagem se preferir */
+    background-size: cover;
+    opacity: 0.3; /* 👈 Opacidade do fundo */
+    z-index: 0;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    padding-top: 20px;
+  }
+
+  h2 {
+    color: rgb(22 163 74 / var(--tw-text-opacity, 1));
+    font-weight: 500;
+    font-size: 3.5rem;
+    -webkit-text-stroke: 1px white;
+  }
+}
+
+
+/* End Galery */
+
+/* Start About */
+
+.about {
+  h2 {
+      color: rgb(22 163 74 / var(--tw-text-opacity, 1));
+      font-weight: 500;
+      font-size: 3.5rem;
+      -webkit-text-stroke: 1px white;
+  }
+
+  .grid {
+    h3 {
+      font-weight: 500;
+      font-size: 2rem;
+      -webkit-text-stroke: 0.5px blue;
+    }
+  }
+}
+
+/* End About */
+
+/* Start Testimonials */
+
+.testemonials {
+  .container {
+  h2 {
+      color: rgb(22 163 74 / var(--tw-text-opacity, 1));
+      font-weight: 500;
+      font-size: 3.5rem;
+      -webkit-text-stroke: 1px white;
+      
+      span {
+        -webkit-text-stroke: 1px white;
+      }
+    }
+
+    h3 {
+      -webkit-text-stroke: 0.5px blue;
+      margin-bottom: 0px;
+    }
+  }
+}
+
+/* End Testimonials */
+
+/* Start Booking */
+
+.booking {
+  .container{
+    h2 {
+      color: rgb(22 163 74 / var(--tw-text-opacity, 1));
+      font-weight: 500;
+      font-size: 3.5rem;
+      -webkit-text-stroke: 1px white;
+      
+      span {
+        -webkit-text-stroke: 1px white;
+      }
+    }
+
+      .name {
+         font-size: 1.5rem;
+          color: rgb(22 163 74 / var(--tw-text-opacity, 1));
+          -webkit-text-stroke: 0.2px blue;
+      }
+
+    button {
+
+      .message {                                                                                     
+        font-size: 2rem;
+        -webkit-text-stroke: 0.8px black;                                                              
+      }
+    }
+  }
+}
+
+/* End Booking */
+
+/* Start Footer */
+
+.footer {
+  .container {
+    .grid {
+      img {
+        height: 80px;
+      }
+
+      .card {
+        @media (max-width: 768px) {
+            display: flex;
+            flex-direction: row;  
+
+            img {
+              width: 200px;
+            }
+            p {
+              margin-left: 16px;
+            }
+
+            
+        }
+      }
+    }
+
+    .links {
+      @media (max-width: 768px) {
+        display: none;
+      }
+    }
+
+      h3 {
+        color: rgb(22 163 74 / var(--tw-text-opacity, 1));
+        font-weight: 500;
+        font-size: 2rem;
+        -webkit-text-stroke: 0.2px blue;
+      }
+
+      .hours {
+        li {
+          span:last-child {
+            font-size: 1.25rem;
+            .hours-content {
+              font-weight: 500;
+              color: rgb(22 163 74 / var(--tw-text-opacity, 1));
+            }
+          }       
+        }
+      }
+  }
+}
