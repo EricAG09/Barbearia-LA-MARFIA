@@ -7,6 +7,7 @@ import About from "@/components/About";
 import Testimonials from "@/components/Testimonials";
 import Booking from "@/components/Booking";
 import Footer from "@/components/Footer";
+import VideoSection from "@/components/VideoSection";
 
 const Index = () => {
   // Função para animar elementos quando eles entrarem no viewport
@@ -56,6 +57,7 @@ const Index = () => {
       <Gallery />
       <About />
       <Testimonials />
+      <VideoSection />
       <Booking />
       <Footer />
     </div>

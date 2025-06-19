@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Calendar } from "@/components/ui/calendar";
 import {
@@ -34,21 +33,55 @@ import { cn } from "@/lib/utils";
 import { useBookings } from "@/hooks/useBookings";
 
 const services = [
-  { id: "corte", name: "Corte Tradicional - R$40" },
-  { id: "barba", name: "Barba Completa - R$25" },
-  { id: "combo", name: "Combo Premium - R$60" },
-  { id: "coloracao", name: "Coloração - R$80" },
+  { id: "corte-social", name: "Corte Social", price: "R$24,90" },
+  { id: "corte-degrade", name: "Corte Degradê", price: "R$24,90" },
+  { id: "corte-degrade-barba", name: "Corte Degradê + Barba", price: "R$35,00" },
+  { id: "corte-degrade-pigmentacao", name: "Corte Degradê + Pigmentação", price: "R$35,00" },
+  { id: "corte-degrade-pigmentacao-barba", name: "Corte Degradê + Pigmentação + Barba", price: "R$45,00" },
+  { id: "corte-completo", name: "Corte Degradê + Pigmentação + Barba + Sobrancelha", price: "R$50,00" },
+  { id: "corte-social-pigmentacao-barba", name: "Corte Social + Pigmentação + Barba", price: "R$40,00" },
+  { id: "corte-degrade-sobrancelha", name: "Corte Degradê + Sobrancelha", price: "R$30,00" },
+  { id: "corte-social-barba", name: "Corte Social + Barba", price: "R$30,00" },
+  { id: "corte-infantil", name: "Corte Infantil", price: "R$30,00" },
+  { id: "sobrancelha", name: "Sobrancelha", price: "R$5,00" },
+  { id: "barba", name: "Barba", price: "R$10,00" },
+  { id: "platinado", name: "Platinado", price: "R$100,00" },
+  { id: "luzes", name: "Luzes", price: "R$80,00" },
+  { id: "pezinho", name: "Pezinho", price: "R$5,00" },
 ];
 
 const timeSlots = [
   "09:00",
+  "09:15",
+  "09:30",
+  "09:45",
   "10:00",
+  "10:15",
+  "10:30",
+  "10:45",
   "11:00",
+  "11:15",
+  "11:30",
   "13:00",
+  "13:15",
+  "13:30",
+  "13:45",
   "14:00",
+  "14:15",
+  "14:30",
+  "14:45",
   "15:00",
+  "15:15",
+  "15:30",
+  "15:45",
   "16:00",
+  "16:15",
+  "16:30",
+  "16:45",
   "17:00",
+  "17:15",
+  "17:30",
+  "17:45",
   "18:00",
 ];
 
@@ -84,7 +117,8 @@ const Booking = () => {
   };
 
   const sendToWhatsApp = (values: z.infer<typeof formSchema>) => {
-    const serviceName = services.find(s => s.id === values.service)?.name || values.service;
+    const service = services.find(s => s.id === values.service);
+    const serviceName = service ? `${service.name} - ${service.price}` : values.service;
     const formattedDate = format(values.date, "dd/MM/yyyy", { locale: ptBR });
     
     const message = `*Novo Agendamento - Master Barber*\n\n` +
@@ -145,11 +179,9 @@ const Booking = () => {
         duration: 3000,
       });
 
-      // Enviar para WhatsApp
+      // Enviar para WhatsApp e resetar formulário
       setTimeout(() => {
         sendToWhatsApp(values);
-        form.reset();
-        setDate(undefined);
         resetForm();
       }, 1500);
       
@@ -169,12 +201,12 @@ const Booking = () => {
   return (
     <section
       id="booking"
-      className="booking section-padding bg-gradient-to-b from-barber-dark to-barber-darker"
+      className="section-padding bg-gradient-to-b from-barber-dark to-barber-darker"
     >
       <div className="container mx-auto">
         <div className="text-center mb-12">
-          <h2 className="font-personalizada text-4xl md:text-4xl font-bold mb-4 border-cyan-50">
-            Agende seu <span className="">Horário</span>
+          <h2 className="font-serif text-3xl md:text-4xl font-bold mb-4">
+            Agende seu <span className="text-barber-gold">Horário</span>
           </h2>
           <div className="flex items-center justify-center gap-3 mb-6">
             <div className="h-px w-12 bg-barber-gold"></div>
@@ -194,7 +226,7 @@ const Booking = () => {
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="name font-personalizada text-gray-300">Nome</FormLabel>
+                    <FormLabel className="text-gray-300">Nome</FormLabel>
                     <FormControl>
                       <Input 
                         placeholder="Seu nome completo" 
@@ -212,7 +244,7 @@ const Booking = () => {
                 name="phone"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="name font-personalizada text-gray-300">Telefone</FormLabel>
+                    <FormLabel className="text-gray-300">Telefone</FormLabel>
                     <FormControl>
                       <Input 
                         placeholder="(85) 99999-9999" 
@@ -230,17 +262,28 @@ const Booking = () => {
                 name="service"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="name font-personalizada text-gray-300">Serviço</FormLabel>
+                    <FormLabel className="text-gray-300">Serviço</FormLabel>
                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
-                        <SelectTrigger className="bg-barber-dark border-barber-gold/20 text-white focus:ring-barber-gold">
-                          <SelectValue placeholder="Selecione um serviço" />
+                        <SelectTrigger className="bg-barber-dark border-barber-gold/20 text-white focus:ring-barber-gold min-h-[44px]">
+                          <SelectValue placeholder="Selecione um serviço" className="text-left" />
                         </SelectTrigger>
                       </FormControl>
-                      <SelectContent className="bg-barber-darker border-barber-gold/20">
+                      <SelectContent className="bg-barber-darker border-barber-gold/20 max-h-64 overflow-y-auto">
                         {services.map((service) => (
-                          <SelectItem key={service.id} value={service.id} className="focus:bg-barber-gold/20 focus:text-white">
-                            {service.name}
+                          <SelectItem 
+                            key={service.id} 
+                            value={service.id} 
+                            className="focus:bg-barber-gold/20 focus:text-white py-3 px-4 cursor-pointer"
+                          >
+                            <div className="flex flex-col items-start w-full min-w-0">
+                              <span className="text-sm font-medium text-white truncate w-full">
+                                {service.name}
+                              </span>
+                              <span className="text-xs text-barber-gold mt-1">
+                                {service.price}
+                              </span>
+                            </div>
                           </SelectItem>
                         ))}
                       </SelectContent>
@@ -255,7 +298,7 @@ const Booking = () => {
                 name="date"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel className="name font-personalizada text-gray-300">Data</FormLabel>
+                    <FormLabel className="text-gray-300">Data</FormLabel>
                     <Popover>
                       <PopoverTrigger asChild>
                         <FormControl>
@@ -310,7 +353,7 @@ const Booking = () => {
                 name="time"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="name font-personalizada text-gray-300">
+                    <FormLabel className="text-gray-300">
                       Horário {date && (
                         <span className="text-barber-gold text-sm">
                           ({getAvailableTimeSlots(date).length} disponíveis)
@@ -344,14 +387,14 @@ const Booking = () => {
               <Button 
                 type="submit" 
                 disabled={isSubmitting}
-                className="w-full border-barber-gold bg-barber-gold text-white hover:bg-barber-dark/10 animate-bounce"
+                className="w-full bg-barber-gold text-barber-dark hover:bg-barber-gold/80"
               >
                 {isSubmitting ? (
                   "Processando agendamento..."
                 ) : (
                   <>
-                    <MessageCircle size={20} className="mr-2" />
-                    <span className="message font-personalizada">Agendar</span>
+                    <MessageCircle size={16} className="mr-2" />
+                    Confirmar Agendamento
                   </>
                 )}
               </Button>

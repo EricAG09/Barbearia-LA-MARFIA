@@ -14,14 +14,14 @@ const servicesList = [
   {
     id: 1,
     name: "Corte Social",
-    price: "R$20",
+    price: "R$24,90",
     image: "/social.JPEG",
     description: "Corte de cabelo clássico com acabamento perfeito e lavagem.",
   },
   {
     id: 2,
     name: "Corte Degradê",
-    price: "R$30",
+    price: "R$24,90",
     image: "/degrade.jpeg",
     description: "Corte de cabelo com degradê com acabamento perfeito e lavagem.",
   },
@@ -35,7 +35,7 @@ const servicesList = [
   {
     id: 4,
     name: "Degradê + pigmentação",
-    price: "R$30",
+    price: "R$35",
     image: "/degrade+pigmentação.jpg",
     description: "Com técnicas modernas e um toque de estilo, o corte deixa o visual do seu filho ainda mais bonito",
   },
