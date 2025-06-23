@@ -193,6 +193,8 @@ const Booking = () => {
         variant: "destructive",
         duration: 5000,
       });
+
+      console.log("Erro aqui", error)
     } finally {
       setIsSubmitting(false);
     }

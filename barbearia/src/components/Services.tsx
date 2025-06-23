@@ -26,20 +26,6 @@ const servicesList = [
     description: "Corte de cabelo com degradê com acabamento perfeito e lavagem.",
   },
   {
-    id: 3,
-    name: "Corte degradê e barba",
-    price: "R$35",
-    image: "/degrade+barba.jpg",
-    description: "Corte de cabelo com degradê e barba com acabamento perfeito e lavagem.",
-  },
-  {
-    id: 4,
-    name: "Degradê + pigmentação",
-    price: "R$35",
-    image: "/degrade+pigmentação.jpg",
-    description: "Com técnicas modernas e um toque de estilo, o corte deixa o visual do seu filho ainda mais bonito",
-  },
-  {
     id: 4,
     name: "Corte Infantil",
     price: "R$30",
