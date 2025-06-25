@@ -25,73 +25,102 @@ export type PeriodReport = {
 
 export const useProfitReports = () => {
   // Get daily profit report
-  const { data: dailyReport, isLoading: isDailyLoading } = useQuery({
-    queryKey: ['daily-profit-report'],
-    queryFn: async () => {
-      const today = new Date().toISOString().split('T')[0];
-      const { data, error } = await supabase
-        .rpc('calculate_daily_profits', { target_date: today });
-      
-      if (error) throw error;
-      return data[0] as ProfitReport;
-    },
-  });
+  // Get daily profit report
+const { data: dailyReport, isLoading: isDailyLoading, error: dailyError } = useQuery({
+  queryKey: ['daily-profit-report'],
+  queryFn: async () => {
+    const today = new Date().toISOString().split('T')[0];
+    const { data, error } = await supabase.rpc('calculate_daily_profits', { target_date: today });
 
-  // Get weekly profit report
-  const { data: weeklyReport, isLoading: isWeeklyLoading } = useQuery({
-    queryKey: ['weekly-profit-report'],
-    queryFn: async () => {
-      const today = new Date().toISOString().split('T')[0];
-      const { data, error } = await supabase
-        .rpc('calculate_weekly_profits', { target_date: today });
-      
-      if (error) throw error;
-      return data[0] as PeriodReport;
-    },
-  });
+    if (error) throw error;
 
-  // Get monthly profit report
-  const { data: monthlyReport, isLoading: isMonthlyLoading } = useQuery({
-    queryKey: ['monthly-profit-report'],
-    queryFn: async () => {
-      const today = new Date().toISOString().split('T')[0];
-      const { data, error } = await supabase
-        .rpc('calculate_monthly_profits', { target_date: today });
-      
-      if (error) throw error;
-      return data[0] as PeriodReport;
-    },
-  });
+    if (!data || data.length === 0) {
+      return {
+        total_services: 0,
+        total_revenue: 0,
+        total_profit: 0,
+        services_breakdown: []
+      };
+    }
+
+    return data[0] as ProfitReport;
+  },
+  refetchInterval: 30000,
+});
+
+// Get weekly profit report
+const { data: weeklyReport, isLoading: isWeeklyLoading, error: weeklyError } = useQuery({
+  queryKey: ['weekly-profit-report'],
+  queryFn: async () => {
+    const today = new Date().toISOString().split('T')[0];
+    const { data, error } = await supabase.rpc('calculate_weekly_profits', { target_date: today });
+
+    if (error) throw error;
+
+    if (!data || data.length === 0) {
+      return {
+        total_services: 0,
+        total_revenue: 0,
+        total_profit: 0
+      };
+    }
+
+    return data[0] as PeriodReport;
+  },
+  refetchInterval: 60000,
+});
+
+// Get monthly profit report
+const { data: monthlyReport, isLoading: isMonthlyLoading, error: monthlyError } = useQuery({
+  queryKey: ['monthly-profit-report'],
+  queryFn: async () => {
+    const today = new Date().toISOString().split('T')[0];
+    const { data, error } = await supabase.rpc('calculate_monthly_profits', { target_date: today });
+
+    if (error) throw error;
+
+    if (!data || data.length === 0) {
+      return {
+        total_services: 0,
+        total_revenue: 0,
+        total_profit: 0
+      };
+    }
+
+    return data[0] as PeriodReport;
+  },
+  refetchInterval: 300000,
+});
+
 
   // Trigger manual report generation
   const generateReport = async () => {
-    try {
-      const { data, error } = await supabase.functions.invoke('daily-profit-report');
-      if (error) throw error;
-      return data;
-    } catch (error) {
-      console.error('Error generating report:', error);
-      throw error;
-    }
-  };
+  const { data, error } = await supabase.functions.invoke('daily-profit-report');
+  if (error) throw error;
+  return data;
+};
+
 
   // Mark booking as completed (to calculate profit)
   const completeBooking = async (bookingId: string) => {
-    try {
-      const { error } = await supabase
-        .from('bookings')
-        .update({ 
-          completed_at: new Date().toISOString(),
-          status: 'completed'
-        })
-        .eq('id', bookingId);
-      
-      if (error) throw error;
-    } catch (error) {
-      console.error('Error completing booking:', error);
-      throw error;
-    }
-  };
+  const { error } = await supabase
+    .from('bookings')
+    .update({ 
+      completed_at: new Date().toISOString(),
+      status: 'completed'
+    })
+    .eq('id', bookingId);
+  
+  if (error) {
+    throw error;
+  }
+};
+
+
+  // Log errors for debugging
+  // if (dailyError) console.error('Erro no relatório diário:', dailyError);
+  // if (weeklyError) console.error('Erro no relatório semanal:', weeklyError);
+  // if (monthlyError) console.error('Erro no relatório mensal:', monthlyError);
 
   return {
     dailyReport,
@@ -100,6 +129,9 @@ export const useProfitReports = () => {
     isDailyLoading,
     isWeeklyLoading,
     isMonthlyLoading,
+    dailyError,
+    weeklyError,
+    monthlyError,
     generateReport,
     completeBooking,
   };
