@@ -17,8 +17,9 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
-import { Calendar as CalendarIcon, MessageCircle } from "lucide-react";
+import { Calendar as CalendarIcon, MessageCircle, X } from "lucide-react";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { useForm } from "react-hook-form";
@@ -31,23 +32,24 @@ import {
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 import { useBookings } from "@/hooks/useBookings";
+import { useAvailability } from "@/hooks/useAvailability";
 
 const services = [
-  { id: "corte-social", name: "Corte Social", price: "R$24,90" },
-  { id: "corte-degrade", name: "Corte Degradê", price: "R$24,90" },
-  { id: "corte-degrade-barba", name: "Corte Degradê + Barba", price: "R$35,00" },
-  { id: "corte-degrade-pigmentacao", name: "Corte Degradê + Pigmentação", price: "R$35,00" },
-  { id: "corte-degrade-pigmentacao-barba", name: "Corte Degradê + Pigmentação + Barba", price: "R$45,00" },
-  { id: "corte-completo", name: "Corte Degradê + Pigmentação + Barba + Sobrancelha", price: "R$50,00" },
-  { id: "corte-social-pigmentacao-barba", name: "Corte Social + Pigmentação + Barba", price: "R$40,00" },
-  { id: "corte-degrade-sobrancelha", name: "Corte Degradê + Sobrancelha", price: "R$30,00" },
-  { id: "corte-social-barba", name: "Corte Social + Barba", price: "R$30,00" },
-  { id: "corte-infantil", name: "Corte Infantil", price: "R$30,00" },
-  { id: "sobrancelha", name: "Sobrancelha", price: "R$5,00" },
-  { id: "barba", name: "Barba", price: "R$10,00" },
-  { id: "platinado", name: "Platinado", price: "R$100,00" },
-  { id: "luzes", name: "Luzes", price: "R$80,00" },
-  { id: "pezinho", name: "Pezinho", price: "R$5,00" },
+  { id: "corte-social", name: "Corte Social", price: "R$24,90", value: 24.90 },
+  { id: "corte-degrade", name: "Corte Degradê", price: "R$24,90", value: 24.90 },
+  { id: "corte-degrade-barba", name: "Corte Degradê + Barba", price: "R$35,00", value: 35.00 },
+  { id: "corte-degrade-pigmentacao", name: "Corte Degradê + Pigmentação", price: "R$35,00", value: 35.00 },
+  { id: "corte-degrade-pigmentacao-barba", name: "Corte Degradê + Pigmentação + Barba", price: "R$45,00", value: 45.00 },
+  { id: "corte-completo", name: "Corte Degradê + Pigmentação + Barba + Sobrancelha", price: "R$50,00", value: 50.00 },
+  { id: "corte-social-pigmentacao-barba", name: "Corte Social + Pigmentação + Barba", price: "R$40,00", value: 40.00 },
+  { id: "corte-degrade-sobrancelha", name: "Corte Degradê + Sobrancelha", price: "R$30,00", value: 30.00 },
+  { id: "corte-social-barba", name: "Corte Social + Barba", price: "R$30,00", value: 30.00 },
+  { id: "corte-infantil", name: "Corte Infantil", price: "R$30,00", value: 30.00 },
+  { id: "sobrancelha", name: "Sobrancelha", price: "R$5,00", value: 5.00 },
+  { id: "barba", name: "Barba", price: "R$10,00", value: 10.00 },
+  { id: "platinado", name: "Platinado", price: "R$100,00", value: 100.00 },
+  { id: "luzes", name: "Luzes", price: "R$80,00", value: 80.00 },
+  { id: "pezinho", name: "Pezinho", price: "R$5,00", value: 5.00 },
 ];
 
 const timeSlots = [
@@ -88,7 +90,7 @@ const timeSlots = [
 const formSchema = z.object({
   name: z.string().min(3, { message: "Nome é obrigatório" }),
   phone: z.string().min(10, { message: "Telefone inválido" }),
-  service: z.string({ required_error: "Selecione um serviço" }),
+  services: z.array(z.string()).min(1, { message: "Selecione pelo menos um serviço" }),
   date: z.date({ required_error: "Selecione uma data" }),
   time: z.string({ required_error: "Selecione um horário" }),
 });
@@ -96,14 +98,17 @@ const formSchema = z.object({
 const Booking = () => {
   const [date, setDate] = useState<Date>();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [selectedServices, setSelectedServices] = useState<string[]>([]);
   const { toast } = useToast();
   const { getBookingsByDate, checkAvailability, createBooking } = useBookings();
+  const { isDateAvailable, getUnavailableMessage } = useAvailability();
   
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
       phone: "",
+      services: [],
     },
   });
 
@@ -113,18 +118,48 @@ const Booking = () => {
     const dayBookings = getBookingsByDate(selectedDate);
     const bookedTimes = dayBookings.map(booking => booking.booking_time);
     
-    return timeSlots.filter(time => !bookedTimes.includes(time));
+    // Filtrar horários já reservados e horários indisponíveis por fechamento
+    return timeSlots.filter(time => 
+      !bookedTimes.includes(time) && isDateAvailable(selectedDate, time)
+    );
+  };
+
+  const calculateTotal = () => {
+    return selectedServices.reduce((total, serviceId) => {
+      const service = services.find(s => s.id === serviceId);
+      return total + (service?.value || 0);
+    }, 0);
+  };
+
+  const handleServiceToggle = (serviceId: string) => {
+    const updatedServices = selectedServices.includes(serviceId)
+      ? selectedServices.filter(id => id !== serviceId)
+      : [...selectedServices, serviceId];
+    
+    setSelectedServices(updatedServices);
+    form.setValue("services", updatedServices);
+  };
+
+  const removeService = (serviceId: string) => {
+    const updatedServices = selectedServices.filter(id => id !== serviceId);
+    setSelectedServices(updatedServices);
+    form.setValue("services", updatedServices);
   };
 
   const sendToWhatsApp = (values: z.infer<typeof formSchema>) => {
-    const service = services.find(s => s.id === values.service);
-    const serviceName = service ? `${service.name} - ${service.price}` : values.service;
+    const selectedServicesList = values.services.map(serviceId => {
+      const service = services.find(s => s.id === serviceId);
+      return service ? `${service.name} - ${service.price}` : serviceId;
+    }).join('\n• ');
+    
+    const total = calculateTotal();
     const formattedDate = format(values.date, "dd/MM/yyyy", { locale: ptBR });
     
     const message = `*Novo Agendamento - Master Barber*\n\n` +
       `🙍🏻‍♂️ *Nome:* ${values.name}\n` +
       `📞 *Telefone:* ${values.phone}\n` +
-      `✂️ *Serviço:* ${serviceName}\n` +
+      `✂️ *Serviços:*\n• ${selectedServicesList}\n` +
+      `💰 *Total:* R$${total.toFixed(2).replace('.', ',')}\n` +
       `📅 *Data:* ${formattedDate}\n` +
       `🕐 *Horário:* ${values.time}\n\n` +
       `Agendamento confirmado automaticamente!`;
@@ -137,16 +172,29 @@ const Booking = () => {
     form.reset({
       name: "",
       phone: "",
-      service: "",
+      services: [],
       time: "",
     });
     setDate(undefined);
+    setSelectedServices([]);
   };
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setIsSubmitting(true);
     
     try {
+      // Verificar se a data/horário está disponível (não fechado pelo admin)
+      if (!isDateAvailable(values.date, values.time)) {
+        toast({
+          title: "Horário Indisponível",
+          description: getUnavailableMessage(values.date) || "Este horário não está disponível.",
+          variant: "destructive",
+          duration: 5000,
+        });
+        setIsSubmitting(false);
+        return;
+      }
+
       // Verificar disponibilidade no banco de dados
       const isAvailable = await checkAvailability(values.date, values.time);
       
@@ -165,7 +213,7 @@ const Booking = () => {
       const booking = {
         name: values.name,
         phone: values.phone,
-        service: values.service,
+        service: values.services.join(', '), // Concatenar serviços para compatibilidade
         booking_date: format(values.date, "yyyy-MM-dd"),
         booking_time: values.time,
         status: 'confirmed'
@@ -193,8 +241,6 @@ const Booking = () => {
         variant: "destructive",
         duration: 5000,
       });
-
-      console.log("Erro aqui", error)
     } finally {
       setIsSubmitting(false);
     }
@@ -216,7 +262,7 @@ const Booking = () => {
             <div className="h-px w-12 bg-barber-gold"></div>
           </div>
           <p className="text-gray-400 max-w-2xl mx-auto">
-            Escolha o dia e horário de sua preferência. Sistema integrado com banco de dados para verificação em tempo real.
+            Escolha o dia, horário e serviços de sua preferência. Agora você pode selecionar múltiplos serviços!
           </p>
         </div>
         
@@ -261,35 +307,59 @@ const Booking = () => {
               
               <FormField
                 control={form.control}
-                name="service"
-                render={({ field }) => (
+                name="services"
+                render={() => (
                   <FormItem>
-                    <FormLabel className="text-gray-300">Serviço</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                      <FormControl>
-                        <SelectTrigger className="bg-barber-dark border-barber-gold/20 text-white focus:ring-barber-gold min-h-[44px]">
-                          <SelectValue placeholder="Selecione um serviço" className="text-left" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent className="bg-barber-darker border-barber-gold/20 max-h-64 overflow-y-auto">
-                        {services.map((service) => (
-                          <SelectItem 
-                            key={service.id} 
-                            value={service.id} 
-                            className="focus:bg-barber-gold/20 focus:text-white py-3 px-4 cursor-pointer"
-                          >
-                            <div className="flex flex-col items-start w-full min-w-0">
-                              <span className="text-sm font-medium text-white truncate w-full">
-                                {service.name}
-                              </span>
-                              <span className="text-xs text-barber-gold mt-1">
-                                {service.price}
-                              </span>
+                    <FormLabel className="text-gray-300">
+                      Serviços {selectedServices.length > 0 && (
+                        <span className="text-barber-gold text-sm">
+                          (Total: R${calculateTotal().toFixed(2).replace('.', ',')})
+                        </span>
+                      )}
+                    </FormLabel>
+                    
+                    {/* Serviços selecionados */}
+                    {selectedServices.length > 0 && (
+                      <div className="flex flex-wrap gap-2 mb-3">
+                        {selectedServices.map(serviceId => {
+                          const service = services.find(s => s.id === serviceId);
+                          return service ? (
+                            <div key={serviceId} className="bg-barber-gold/20 text-barber-gold px-3 py-1 rounded-full text-sm flex items-center gap-2">
+                              <span>{service.name}</span>
+                              <button
+                                type="button"
+                                onClick={() => removeService(serviceId)}
+                                className="hover:bg-barber-gold/30 rounded-full p-1"
+                              >
+                                <X size={12} />
+                              </button>
                             </div>
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                          ) : null;
+                        })}
+                      </div>
+                    )}
+
+                    <div className="space-y-3 max-h-64 overflow-y-auto border border-barber-gold/20 rounded-md p-3">
+                      {services.map((service) => (
+                        <div key={service.id} className="flex items-center space-x-3">
+                          <Checkbox
+                            id={service.id}
+                            checked={selectedServices.includes(service.id)}
+                            onCheckedChange={() => handleServiceToggle(service.id)}
+                            className="border-barber-gold/50 data-[state=checked]:bg-barber-gold data-[state=checked]:border-barber-gold"
+                          />
+                          <label
+                            htmlFor={service.id}
+                            className="flex-1 cursor-pointer text-sm text-white hover:text-barber-gold transition-colors"
+                          >
+                            <div className="flex justify-between items-center">
+                              <span>{service.name}</span>
+                              <span className="text-barber-gold font-medium">{service.price}</span>
+                            </div>
+                          </label>
+                        </div>
+                      ))}
+                    </div>
                     <FormMessage className="text-red-400" />
                   </FormItem>
                 )}
@@ -343,6 +413,13 @@ const Booking = () => {
                             head_cell: "text-barber-gold",
                           }}
                         />
+                        {date && getUnavailableMessage(date) && (
+                          <div className="p-3 border-t border-barber-gold/20">
+                            <p className="text-yellow-400 text-sm text-center">
+                              ⚠️ {getUnavailableMessage(date)}
+                            </p>
+                          </div>
+                        )}
                       </PopoverContent>
                     </Popover>
                     <FormMessage className="text-red-400" />
@@ -376,7 +453,10 @@ const Booking = () => {
                         ))}
                         {getAvailableTimeSlots(date).length === 0 && (
                           <div className="px-3 py-2 text-gray-400 text-sm">
-                            Nenhum horário disponível
+                            {date && getUnavailableMessage(date) 
+                              ? getUnavailableMessage(date)
+                              : "Nenhum horário disponível"
+                            }
                           </div>
                         )}
                       </SelectContent>
@@ -388,7 +468,7 @@ const Booking = () => {
               
               <Button 
                 type="submit" 
-                disabled={isSubmitting}
+                disabled={isSubmitting || selectedServices.length === 0}
                 className="w-full bg-barber-gold text-barber-dark hover:bg-barber-gold/80"
               >
                 {isSubmitting ? (
