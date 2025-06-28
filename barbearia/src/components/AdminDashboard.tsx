@@ -7,6 +7,7 @@ import { useBookings } from '@/hooks/useBookings';
 import ProfitReports from './ProfitReports';
 import BookingsByDay from './BookingsByDay';
 import AvailabilityManager from './AvailabilityManager';
+import ServiceDurationManager from './ServiceDurationManager';
 
 interface AdminDashboardProps {
   onLogout: () => void;
@@ -43,7 +44,7 @@ const AdminDashboard = ({ onLogout }: AdminDashboardProps) => {
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <Tabs defaultValue="profits" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 h-auto p-1 gap-1">
+          <TabsList className="grid w-full grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 h-auto p-1 gap-1">
             <TabsTrigger value="profits" className="text-sm px-3 py-2 h-auto whitespace-normal text-center">
               Relatórios de Lucro
             </TabsTrigger>
@@ -52,6 +53,9 @@ const AdminDashboard = ({ onLogout }: AdminDashboardProps) => {
             </TabsTrigger>
             <TabsTrigger value="availability" className="text-sm px-3 py-2 h-auto whitespace-normal text-center">
               Disponibilidade
+            </TabsTrigger>
+            <TabsTrigger value="durations" className="text-sm px-3 py-2 h-auto whitespace-normal text-center">
+              Duração dos Serviços
             </TabsTrigger>
           </TabsList>
 
@@ -78,6 +82,10 @@ const AdminDashboard = ({ onLogout }: AdminDashboardProps) => {
 
           <TabsContent value="availability" className="space-y-6">
             <AvailabilityManager />
+          </TabsContent>
+
+          <TabsContent value="durations" className="space-y-6">
+            <ServiceDurationManager />
           </TabsContent>
         </Tabs>
       </main>

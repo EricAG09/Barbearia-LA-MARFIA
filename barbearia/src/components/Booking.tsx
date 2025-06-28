@@ -100,7 +100,14 @@ const Booking = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
   const { toast } = useToast();
-  const { getBookingsByDate, checkAvailability, createBooking } = useBookings();
+  const { 
+    getBookingsByDate, 
+    checkAvailability, 
+    createBooking, 
+    getBlockedTimeSlotsForDate, 
+    calculateTotalDuration,
+    SERVICE_DURATIONS 
+  } = useBookings();
   const { isDateAvailable, getUnavailableMessage } = useAvailability();
   
   const form = useForm<z.infer<typeof formSchema>>({
@@ -115,12 +122,12 @@ const Booking = () => {
   const getAvailableTimeSlots = (selectedDate: Date | undefined) => {
     if (!selectedDate) return timeSlots;
     
-    const dayBookings = getBookingsByDate(selectedDate);
-    const bookedTimes = dayBookings.map(booking => booking.booking_time);
+    // Obter horários bloqueados por agendamentos existentes
+    const blockedByBookings = getBlockedTimeSlotsForDate(selectedDate);
     
-    // Filtrar horários já reservados e horários indisponíveis por fechamento
+    // Filtrar horários já reservados, bloqueados por duração e horários indisponíveis por fechamento
     return timeSlots.filter(time => 
-      !bookedTimes.includes(time) && isDateAvailable(selectedDate, time)
+      !blockedByBookings.includes(time) && isDateAvailable(selectedDate, time)
     );
   };
 
@@ -138,21 +145,29 @@ const Booking = () => {
     
     setSelectedServices(updatedServices);
     form.setValue("services", updatedServices);
+    
+    // Limpar horário selecionado quando mudar serviços para recalcular disponibilidade
+    form.setValue("time", "");
   };
 
   const removeService = (serviceId: string) => {
     const updatedServices = selectedServices.filter(id => id !== serviceId);
     setSelectedServices(updatedServices);
     form.setValue("services", updatedServices);
+    
+    // Limpar horário selecionado quando mudar serviços
+    form.setValue("time", "");
   };
 
   const sendToWhatsApp = (values: z.infer<typeof formSchema>) => {
     const selectedServicesList = values.services.map(serviceId => {
       const service = services.find(s => s.id === serviceId);
-      return service ? `${service.name} - ${service.price}` : serviceId;
+      const duration = SERVICE_DURATIONS[serviceId] || 30;
+      return service ? `${service.name} - ${service.price} (${duration}min)` : serviceId;
     }).join('\n• ');
     
     const total = calculateTotal();
+    const totalDuration = calculateTotalDuration(values.services);
     const formattedDate = format(values.date, "dd/MM/yyyy", { locale: ptBR });
     
     const message = `*Novo Agendamento - Master Barber*\n\n` +
@@ -160,6 +175,7 @@ const Booking = () => {
       `📞 *Telefone:* ${values.phone}\n` +
       `✂️ *Serviços:*\n• ${selectedServicesList}\n` +
       `💰 *Total:* R$${total.toFixed(2).replace('.', ',')}\n` +
+      `⏱️ *Duração Total:* ${totalDuration} minutos\n` +
       `📅 *Data:* ${formattedDate}\n` +
       `🕐 *Horário:* ${values.time}\n\n` +
       `Agendamento confirmado automaticamente!`;
@@ -195,13 +211,13 @@ const Booking = () => {
         return;
       }
 
-      // Verificar disponibilidade no banco de dados
-      const isAvailable = await checkAvailability(values.date, values.time);
+      // Verificar disponibilidade no banco de dados considerando duração dos serviços
+      const isAvailable = await checkAvailability(values.date, values.time, values.services);
       
       if (!isAvailable) {
         toast({
           title: "Horário Indisponível",
-          description: "Este horário já está ocupado. Por favor, escolha outro horário.",
+          description: "Este horário conflita com outro agendamento. Por favor, escolha outro horário.",
           variant: "destructive",
           duration: 5000,
         });
@@ -213,7 +229,7 @@ const Booking = () => {
       const booking = {
         name: values.name,
         phone: values.phone,
-        service: values.services.join(', '), // Concatenar serviços para compatibilidade
+        service: values.services.join(', '),
         booking_date: format(values.date, "yyyy-MM-dd"),
         booking_time: values.time,
         status: 'confirmed'
@@ -262,7 +278,7 @@ const Booking = () => {
             <div className="h-px w-12 bg-barber-gold"></div>
           </div>
           <p className="text-gray-400 max-w-2xl mx-auto">
-            Escolha o dia, horário e serviços de sua preferência. Agora você pode selecionar múltiplos serviços!
+            Escolha o dia, horário e serviços de sua preferência. Os horários são bloqueados automaticamente baseado na duração dos serviços!
           </p>
         </div>
         
@@ -313,7 +329,7 @@ const Booking = () => {
                     <FormLabel className="text-gray-300">
                       Serviços {selectedServices.length > 0 && (
                         <span className="text-barber-gold text-sm">
-                          (Total: R${calculateTotal().toFixed(2).replace('.', ',')})
+                          (Total: R${calculateTotal().toFixed(2).replace('.', ',')} - {calculateTotalDuration(selectedServices)}min)
                         </span>
                       )}
                     </FormLabel>
@@ -323,9 +339,10 @@ const Booking = () => {
                       <div className="flex flex-wrap gap-2 mb-3">
                         {selectedServices.map(serviceId => {
                           const service = services.find(s => s.id === serviceId);
+                          const duration = SERVICE_DURATIONS[serviceId] || 30;
                           return service ? (
                             <div key={serviceId} className="bg-barber-gold/20 text-barber-gold px-3 py-1 rounded-full text-sm flex items-center gap-2">
-                              <span>{service.name}</span>
+                              <span>{service.name} ({duration}min)</span>
                               <button
                                 type="button"
                                 onClick={() => removeService(serviceId)}
@@ -340,25 +357,31 @@ const Booking = () => {
                     )}
 
                     <div className="space-y-3 max-h-64 overflow-y-auto border border-barber-gold/20 rounded-md p-3">
-                      {services.map((service) => (
-                        <div key={service.id} className="flex items-center space-x-3">
-                          <Checkbox
-                            id={service.id}
-                            checked={selectedServices.includes(service.id)}
-                            onCheckedChange={() => handleServiceToggle(service.id)}
-                            className="border-barber-gold/50 data-[state=checked]:bg-barber-gold data-[state=checked]:border-barber-gold"
-                          />
-                          <label
-                            htmlFor={service.id}
-                            className="flex-1 cursor-pointer text-sm text-white hover:text-barber-gold transition-colors"
-                          >
-                            <div className="flex justify-between items-center">
-                              <span>{service.name}</span>
-                              <span className="text-barber-gold font-medium">{service.price}</span>
-                            </div>
-                          </label>
-                        </div>
-                      ))}
+                      {services.map((service) => {
+                        const duration = SERVICE_DURATIONS[service.id] || 30;
+                        return (
+                          <div key={service.id} className="flex items-center space-x-3">
+                            <Checkbox
+                              id={service.id}
+                              checked={selectedServices.includes(service.id)}
+                              onCheckedChange={() => handleServiceToggle(service.id)}
+                              className="border-barber-gold/50 data-[state=checked]:bg-barber-gold data-[state=checked]:border-barber-gold"
+                            />
+                            <label
+                              htmlFor={service.id}
+                              className="flex-1 cursor-pointer text-sm text-white hover:text-barber-gold transition-colors"
+                            >
+                              <div className="flex justify-between items-center">
+                                <div>
+                                  <span>{service.name}</span>
+                                  <span className="text-gray-400 text-xs block">({duration} minutos)</span>
+                                </div>
+                                <span className="text-barber-gold font-medium">{service.price}</span>
+                              </div>
+                            </label>
+                          </div>
+                        );
+                      })}
                     </div>
                     <FormMessage className="text-red-400" />
                   </FormItem>
@@ -435,7 +458,8 @@ const Booking = () => {
                     <FormLabel className="text-gray-300">
                       Horário {date && (
                         <span className="text-barber-gold text-sm">
-                          ({getAvailableTimeSlots(date).length} disponíveis)
+                          ({getAvailableTimeSlots(date).length} disponíveis
+                          {selectedServices.length > 0 && ` - ${calculateTotalDuration(selectedServices)}min necessários`})
                         </span>
                       )}
                     </FormLabel>
@@ -455,6 +479,8 @@ const Booking = () => {
                           <div className="px-3 py-2 text-gray-400 text-sm">
                             {date && getUnavailableMessage(date) 
                               ? getUnavailableMessage(date)
+                              : selectedServices.length > 0
+                              ? "Nenhum horário disponível para esta duração"
                               : "Nenhum horário disponível"
                             }
                           </div>
@@ -477,6 +503,11 @@ const Booking = () => {
                   <>
                     <MessageCircle size={16} className="mr-2" />
                     Confirmar Agendamento
+                    {selectedServices.length > 0 && (
+                      <span className="ml-2 font-bold">
+                        (R${calculateTotal().toFixed(2).replace('.', ',')})
+                      </span>
+                    )}
                   </>
                 )}
               </Button>

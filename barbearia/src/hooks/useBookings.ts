@@ -12,6 +12,26 @@ export type Booking = {
   status?: string;
   completed_at?: string;
   profit_amount?: number;
+  duration?: number; // duração em minutos
+};
+
+// Durações padrão dos serviços (em minutos)
+export const SERVICE_DURATIONS: Record<string, number> = {
+  "corte-social": 30,
+  "corte-degrade": 45,
+  "corte-degrade-barba": 60,
+  "corte-degrade-pigmentacao": 75,
+  "corte-degrade-pigmentacao-barba": 90,
+  "corte-completo": 120,
+  "corte-social-pigmentacao-barba": 75,
+  "corte-degrade-sobrancelha": 50,
+  "corte-social-barba": 45,
+  "corte-infantil": 25,
+  "sobrancelha": 15,
+  "barba": 20,
+  "platinado": 180,
+  "luzes": 120,
+  "pezinho": 10,
 };
 
 export const useBookings = () => {
@@ -31,19 +51,78 @@ export const useBookings = () => {
     },
   });
 
-  // Verificar se um horário está disponível
-  const checkAvailability = async (date: Date, time: string) => {
+  // Função para calcular duração total dos serviços selecionados
+  const calculateTotalDuration = (services: string[]) => {
+    return services.reduce((total, serviceId) => {
+      return total + (SERVICE_DURATIONS[serviceId] || 30);
+    }, 0);
+  };
+
+  // Função para gerar slots de tempo bloqueados por um agendamento
+  const getBlockedTimeSlots = (startTime: string, duration: number) => {
+    const timeSlots = [
+      "09:00", "09:15", "09:30", "09:45", "10:00", "10:15", "10:30", "10:45",
+      "11:00", "11:15", "11:30", "13:00", "13:15", "13:30", "13:45", "14:00",
+      "14:15", "14:30", "14:45", "15:00", "15:15", "15:30", "15:45", "16:00",
+      "16:15", "16:30", "16:45", "17:00", "17:15", "17:30", "17:45", "18:00",
+    ];
+
+    const startIndex = timeSlots.indexOf(startTime);
+    if (startIndex === -1) return [];
+
+    const blockedSlots = [startTime];
+    const currentTime = new Date(`2000-01-01T${startTime}:00`);
+    let remainingDuration = duration;
+
+    while (remainingDuration > 0) {
+      currentTime.setMinutes(currentTime.getMinutes() + 15);
+      const nextTimeSlot = currentTime.toTimeString().slice(0, 5);
+      
+      if (timeSlots.includes(nextTimeSlot)) {
+        blockedSlots.push(nextTimeSlot);
+      }
+      
+      remainingDuration -= 15;
+    }
+
+    return blockedSlots.filter(slot => timeSlots.includes(slot));
+  };
+
+  // Verificar se um horário está disponível considerando durações
+  const checkAvailability = async (date: Date, time: string, selectedServices: string[] = []) => {
     const dateString = format(date, 'yyyy-MM-dd');
+    const duration = calculateTotalDuration(selectedServices);
     
+    // Buscar todos os agendamentos do dia
     const { data, error } = await supabase
       .from('bookings')
-      .select('id')
+      .select('*')
       .eq('booking_date', dateString)
-      .eq('booking_time', time)
       .eq('status', 'confirmed');
     
     if (error) throw error;
-    return data.length === 0; // true se disponível
+
+    // Verificar se o horário solicitado conflita com agendamentos existentes
+    for (const booking of data) {
+      const bookingServices = booking.service.split(', ');
+      const bookingDuration = calculateTotalDuration(bookingServices);
+      const blockedSlots = getBlockedTimeSlots(booking.booking_time, bookingDuration);
+      
+      // Verificar se o horário solicitado está nos slots bloqueados
+      if (blockedSlots.includes(time)) {
+        return false;
+      }
+
+      // Verificar se os slots do novo agendamento conflitam com o existente
+      const newBookingSlots = getBlockedTimeSlots(time, duration);
+      const hasConflict = newBookingSlots.some(slot => blockedSlots.includes(slot));
+      
+      if (hasConflict) {
+        return false;
+      }
+    }
+    
+    return true;
   };
 
   // Criar nova reserva
@@ -62,14 +141,19 @@ export const useBookings = () => {
         console.log('Erro ao buscar lucro do serviço, usando valor padrão:', profitError);
       }
 
+      // Calcular duração total dos serviços
+      const services = booking.service.split(', ');
+      const totalDuration = calculateTotalDuration(services);
+
       const bookingWithProfit = {
         ...booking,
         profit_amount: serviceProfit?.profit_amount || 0,
-        completed_at: new Date().toISOString(), // Marcar como concluído imediatamente
+        duration: totalDuration,
+        completed_at: new Date().toISOString(),
         status: 'confirmed'
       };
 
-      console.log('Agendamento com lucro:', bookingWithProfit);
+      console.log('Agendamento com lucro e duração:', bookingWithProfit);
 
       const { data, error } = await supabase
         .from('bookings')
@@ -124,6 +208,21 @@ export const useBookings = () => {
     return bookings.filter(booking => booking.booking_date === dateString);
   };
 
+  // Obter horários bloqueados para uma data específica
+  const getBlockedTimeSlotsForDate = (date: Date) => {
+    const dayBookings = getBookingsByDate(date);
+    const blockedSlots: string[] = [];
+
+    dayBookings.forEach(booking => {
+      const services = booking.service.split(', ');
+      const duration = calculateTotalDuration(services);
+      const slots = getBlockedTimeSlots(booking.booking_time, duration);
+      blockedSlots.push(...slots);
+    });
+
+    return [...new Set(blockedSlots)]; // Remove duplicatas
+  };
+
   return {
     bookings,
     isLoading,
@@ -131,5 +230,8 @@ export const useBookings = () => {
     createBooking,
     completeBooking,
     getBookingsByDate,
+    getBlockedTimeSlotsForDate,
+    calculateTotalDuration,
+    SERVICE_DURATIONS,
   };
 };
