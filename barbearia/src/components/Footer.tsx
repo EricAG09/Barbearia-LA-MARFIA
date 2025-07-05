@@ -43,7 +43,7 @@ const Footer = () => {
                 <Facebook size={20} />
               </a>
               <a
-                href="https://wa.me/5511999999999"
+                href="https://wa.me/55859240-0522"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-barber-gold hover:text-white transition-colors"
@@ -112,7 +112,7 @@ const Footer = () => {
 
             <Button className="mt-6 bg-barber-gold text-barber-dark hover:bg-barber-gold/80 w-full" asChild>
               <a
-                href="https://wa.me/5511999999999?text=Olá,%20gostaria%20de%20agendar%20um%20horário"
+                href="https://wa.me/5585992400522?text=Olá,%20gostaria%20de%20agendar%20um%20horário"
                 target="_blank"
                 rel="noopener noreferrer"
               >

@@ -197,7 +197,7 @@ const Booking = () => {
       `*Horário:* ${values.time}\n\n` +
       `Agendamento confirmado automaticamente!`;
 
-    const whatsappUrl = `https://wa.me/5585994066861?text=${encodeURIComponent(message)}`;
+    const whatsappUrl = `https://wa.me/5585992400522?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
   };
 

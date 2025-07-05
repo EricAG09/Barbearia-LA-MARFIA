@@ -77,7 +77,7 @@ serve(async (req) => {
     message += `_Relatório gerado automaticamente às ${new Date().toLocaleTimeString('pt-BR')}_`
 
     // Send to WhatsApp (você precisará configurar a API do WhatsApp)
-    const whatsappUrl = `https://wa.me/5585994066861?text=${encodeURIComponent(message)}`
+    const whatsappUrl = `https://wa.me/5585992400522?text=${encodeURIComponent(message)}`
     
     // For now, we'll return the message and URL
     // In production, you would integrate with WhatsApp Business API
