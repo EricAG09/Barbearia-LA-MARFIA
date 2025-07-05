@@ -27,15 +27,15 @@ const combos = [
     name: "Combo Cuidado de Rei",
     icon: Crown,
     services: ["Corte", "Barba", "Hidratação"],
-    price: "R$44,90",
-    originalPrice: "R$49,90",
+    price: "R$40,90",
+    originalPrice: "R$45,90",
     savings: "5 reais",
     description: "Tratamento premium com hidratação especial para cabelo e barba.",
     image: "/hidratado.jpg",
   },
   {
     id: 3,
-    name: "Combo Estilo Jacu",
+    name: "Combo Style Jacu",
     icon: Target,
     services: ["Corte", "Barba", "Pigmentação"],
     price: "R$49,90",
@@ -50,12 +50,12 @@ const Combos = () => {
   return (
     <section
       id="combos"
-      className="section-padding bg-gradient-to-b from-barber-dark to-barber-darker"
+      className="combos section-padding bg-gradient-to-b from-barber-dark to-barber-darker"
     >
-      <div className="container mx-auto">
+      <div className="combos container mx-auto">
         <div className="text-center mb-12">
-          <h2 className="font-serif text-3xl md:text-4xl font-bold mb-4">
-            Combos <span className="text-barber-gold">Irresistíveis</span>
+          <h2 className="font-personalizada text-3xl md:text-4xl font-bold mb-4">
+            Combos <span className="">Irresistíveis</span>
           </h2>
           <div className="flex items-center justify-center gap-3 mb-6">
             <div className="h-px w-12 bg-barber-gold"></div>
@@ -90,7 +90,7 @@ const Combos = () => {
                 </div>
                 
                 <CardHeader>
-                  <CardTitle className="text-xl font-serif flex items-center gap-2">
+                  <CardTitle className="text-xl font-personalizada flex items-center gap-2">
                     <IconComponent size={20} className="text-barber-gold" />
                     <span>{combo.name}</span>
                   </CardTitle>
@@ -112,9 +112,9 @@ const Combos = () => {
                     {combo.description}
                   </CardDescription>
                   
-                  <div className="flex items-center justify-between">
+                  <div className="card-price flex items-center justify-between">
                     <div className="flex flex-col">
-                      <span className="text-2xl font-bold text-barber-gold">
+                      <span className="text-2xl font-personalizada font-light text-barber-gold">
                         {combo.price}
                       </span>
                       <span className="text-sm text-gray-500 line-through">

@@ -16,14 +16,14 @@ const servicesList = [
     name: "Corte Social",
     price: "R$24,90",
     image: "/social.JPEG",
-    description: "Corte de cabelo clássico com acabamento perfeito e lavagem.",
+    description: "Corte de cabelo clássico com acabamento perfeito.",
   },
   {
     id: 2,
     name: "Corte Degradê",
     price: "R$24,90",
     image: "/degrade.jpeg",
-    description: "Corte de cabelo com degradê com acabamento perfeito e lavagem.",
+    description: "Corte de cabelo com degradê com acabamento perfeito.",
   },
   {
     id: 4,
@@ -42,7 +42,7 @@ const servicesList = [
   {
     id: 6,
     name: "Barba",
-    price: "R$10",
+    price: "R$14",
     image: "/barba.jpeg",
     description: "A barba é um dos principais elementos do visual masculino e pode fazer toda a diferença na sua aparência.",
   },

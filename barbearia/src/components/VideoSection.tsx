@@ -7,11 +7,11 @@ const VideoSection = () => {
   const videoUrl = "/seu-video.mp4"; // Coloque o arquivo na pasta public/
   
   return (
-    <section className="section-padding bg-barber-darker">
+    <section className="video section-padding bg-barber-darker">
       <div className="container mx-auto">
         <div className="text-center mb-12">
-          <h2 className="font-serif text-3xl md:text-4xl font-bold mb-4">
-            Veja Nosso <span className="text-barber-gold">Trabalho</span>
+          <h2 className="font-personalizada text-3xl md:text-4xl font-bold mb-4">
+            Veja Nosso <span className="">Trabalho</span>
           </h2>
           <div className="flex items-center justify-center gap-3 mb-6">
             <div className="h-px w-12 bg-barber-gold"></div>

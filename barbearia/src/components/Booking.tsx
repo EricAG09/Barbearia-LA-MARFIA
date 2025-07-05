@@ -37,53 +37,70 @@ import { useAvailability } from "@/hooks/useAvailability";
 const services = [
   { id: "corte-social", name: "Corte Social", price: "R$24,90", value: 24.90 },
   { id: "corte-degrade", name: "Corte Degradê", price: "R$24,90", value: 24.90 },
-  { id: "corte-degrade-barba", name: "Corte Degradê + Barba", price: "R$35,00", value: 35.00 },
-  { id: "corte-degrade-pigmentacao", name: "Corte Degradê + Pigmentação", price: "R$35,00", value: 35.00 },
-  { id: "corte-degrade-pigmentacao-barba", name: "Corte Degradê + Pigmentação + Barba", price: "R$45,00", value: 45.00 },
-  { id: "corte-completo", name: "Corte Degradê + Pigmentação + Barba + Sobrancelha", price: "R$50,00", value: 50.00 },
-  { id: "corte-social-pigmentacao-barba", name: "Corte Social + Pigmentação + Barba", price: "R$40,00", value: 40.00 },
-  { id: "corte-degrade-sobrancelha", name: "Corte Degradê + Sobrancelha", price: "R$30,00", value: 30.00 },
-  { id: "corte-social-barba", name: "Corte Social + Barba", price: "R$30,00", value: 30.00 },
   { id: "corte-infantil", name: "Corte Infantil", price: "R$30,00", value: 30.00 },
   { id: "sobrancelha", name: "Sobrancelha", price: "R$5,00", value: 5.00 },
-  { id: "barba", name: "Barba", price: "R$10,00", value: 10.00 },
-  { id: "platinado", name: "Platinado", price: "R$100,00", value: 100.00 },
-  { id: "luzes", name: "Luzes", price: "R$80,00", value: 80.00 },
-  { id: "pezinho", name: "Pezinho", price: "R$5,00", value: 5.00 },
+  { id: "barba", name: "Barba", price: "R$10,00", value: 14.00 },
+  { id: "corte-degrade-barba", name: "Combo Prince", price: "R$44,00", value: 44.00 },
+  { id: "corte-degrade-pigmentacao", name: "Corte Degradê + Pigmentação", price: "R$35,00", value: 35.00 },
+  { id: "corte-degrade-pigmentacao-barba", name: "Corte Degradê + Pigmentação + Barba", price: "R$45,00", value: 45.00 },
+  // { id: "corte-completo", name: "Corte Degradê + Pigmentação + Barba + Sobrancelha", price: "R$50,00", value: 50.00 },
+  // { id: "corte-social-pigmentacao-barba", name: "Corte Social + Pigmentação + Barba", price: "R$40,00", value: 40.00 },
+  // { id: "corte-degrade-sobrancelha", name: "Corte Degradê + Sobrancelha", price: "R$30,00", value: 30.00 },
+  // { id: "corte-social-barba", name: "Corte Social + Barba", price: "R$30,00", value: 30.00 },
+
+  // { id: "platinado", name: "Platinado", price: "R$100,00", value: 100.00 },
+  // { id: "luzes", name: "Luzes", price: "R$80,00", value: 80.00 },
+  // { id: "pezinho", name: "Pezinho", price: "R$5,00", value: 5.00 },
 ];
 
 const timeSlots = [
   "09:00",
-  "09:15",
-  "09:30",
-  "09:45",
+  // "09:15",
+  "09:20",
+  // "09:30",
+  "09:40",
+  // "09:45",
   "10:00",
-  "10:15",
-  "10:30",
-  "10:45",
+  "10:20",
+  // "10:15",
+  // "10:30",
+  "10:40",
+  // "10:45",
   "11:00",
-  "11:15",
-  "11:30",
+  "11:20",
+  // "11:15",
+  // "11:30",
+  "11:40",
   "13:00",
-  "13:15",
-  "13:30",
-  "13:45",
+  // "13:15",
+  "13:20",
+
+  "13:40",
+  // "13:45",
   "14:00",
-  "14:15",
-  "14:30",
-  "14:45",
+  "14:20",
+  // "14:15",
+  // "14:30",
+  "14:40",
+  // "14:45",
   "15:00",
-  "15:15",
-  "15:30",
-  "15:45",
+  "15:20",
+  // "15:15",
+  // "15:30",
+  "15:40",
+  // "15:45",
   "16:00",
-  "16:15",
-  "16:30",
-  "16:45",
+  "16:20",
+  // "16:15",
+  // "16:30",
+  "16:40",
+  // "16:45",
   "17:00",
-  "17:15",
-  "17:30",
-  "17:45",
+  "17:20",
+  // "17:15",
+  // "17:30",
+  "17:40",
+  // "17:45",
   "18:00",
 ];
 
@@ -171,13 +188,13 @@ const Booking = () => {
     const formattedDate = format(values.date, "dd/MM/yyyy", { locale: ptBR });
     
     const message = `*Novo Agendamento - Master Barber*\n\n` +
-      `🙍🏻‍♂️ *Nome:* ${values.name}\n` +
-      `📞 *Telefone:* ${values.phone}\n` +
-      `✂️ *Serviços:*\n• ${selectedServicesList}\n` +
-      `💰 *Total:* R$${total.toFixed(2).replace('.', ',')}\n` +
-      `⏱️ *Duração Total:* ${totalDuration} minutos\n` +
-      `📅 *Data:* ${formattedDate}\n` +
-      `🕐 *Horário:* ${values.time}\n\n` +
+      `*Nome:* ${values.name}\n` +
+      `*Telefone:* ${values.phone}\n` +
+      `*Serviços:*\n• ${selectedServicesList}\n` +
+      `*Total:* R$${total.toFixed(2).replace('.', ',')}\n` +
+      `*Duração Total:* ${totalDuration} minutos\n` +
+      `*Data:* ${formattedDate}\n` +
+      `*Horário:* ${values.time}\n\n` +
       `Agendamento confirmado automaticamente!`;
 
     const whatsappUrl = `https://wa.me/5585994066861?text=${encodeURIComponent(message)}`;
@@ -265,12 +282,12 @@ const Booking = () => {
   return (
     <section
       id="booking"
-      className="section-padding bg-gradient-to-b from-barber-dark to-barber-darker"
+      className="booking section-padding bg-gradient-to-b from-barber-dark to-barber-darker"
     >
       <div className="container mx-auto">
         <div className="text-center mb-12">
-          <h2 className="font-serif text-3xl md:text-4xl font-bold mb-4">
-            Agende seu <span className="text-barber-gold">Horário</span>
+          <h2 className="font-personalizada text-3xl md:text-4xl font-bold mb-4">
+            Agende seu <span className="">Horário</span>
           </h2>
           <div className="flex items-center justify-center gap-3 mb-6">
             <div className="h-px w-12 bg-barber-gold"></div>
@@ -503,11 +520,6 @@ const Booking = () => {
                   <>
                     <MessageCircle size={16} className="mr-2" />
                     Confirmar Agendamento
-                    {selectedServices.length > 0 && (
-                      <span className="ml-2 font-bold">
-                        (R${calculateTotal().toFixed(2).replace('.', ',')})
-                      </span>
-                    )}
                   </>
                 )}
               </Button>
