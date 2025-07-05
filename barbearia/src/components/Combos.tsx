@@ -42,7 +42,7 @@ const combos = [
     originalPrice: "R$54,90",
     savings: "5 reais",
     description: "Visual moderno com pigmentação para um estilo único e marcante.",
-    image: "/degrade+pigmentação.jpg",
+    image: "/degrade 3.jpeg",
   },
 ];
 
