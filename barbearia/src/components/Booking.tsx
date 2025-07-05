@@ -187,7 +187,7 @@ const Booking = () => {
     const totalDuration = calculateTotalDuration(values.services);
     const formattedDate = format(values.date, "dd/MM/yyyy", { locale: ptBR });
     
-    const message = `*Novo Agendamento - Master Barber*\n\n` +
+    const message = `*Novo Agendamento - The Prince of Jacu*\n\n` +
       `*Nome:* ${values.name}\n` +
       `*Telefone:* ${values.phone}\n` +
       `*Serviços:*\n• ${selectedServicesList}\n` +
