@@ -46,21 +46,6 @@ const servicesList = [
     image: "/barba.jpeg",
     description: "A barba é um dos principais elementos do visual masculino e pode fazer toda a diferença na sua aparência.",
   },
-  {
-    id: 7,
-    name: "Platinado",
-    price: "R$100",
-    image: "/platinado.JPEG",
-    description: "O platinado é uma técnica de coloração que deixa os cabelos com um tom loiro muito claro, quase branco.",
-  },
-  {
-    id: 8,
-    name: "Luzes",
-    price: "R$80",
-    image: "/luzes.jpeg",
-    description: "As luzes são uma técnica de coloração que deixa mechas do cabelos com um tom mais claro e iluminado.",
-  },
-
 ];
 
 const Services = () => {
