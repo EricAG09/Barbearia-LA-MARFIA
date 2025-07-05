@@ -4,7 +4,7 @@ import { Play } from "lucide-react";
 
 const VideoSection = () => {
   // Substitua esta URL pela URL do seu vídeo
-  const videoUrl = "/seu-video.mp4"; // Coloque o arquivo na pasta public/
+  const videoUrl = "/video.mp4"; // Coloque o arquivo na pasta public/
   
   return (
     <section className="video section-padding bg-barber-darker">
