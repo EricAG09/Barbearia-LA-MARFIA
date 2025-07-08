@@ -171,49 +171,54 @@ const Booking = () => {
   };
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    setIsSubmitting(true);
-    
-    try {
-      // Para ordem de chegada, usar horário genérico
-      const bookingTime = values.bookingType === "walk_in" ? "00:00" : values.time!;
+  setIsSubmitting(true);
 
-      // Criar a reserva no banco de dados
-      const booking = {
+  try {
+    const bookingTime = values.bookingType === "walk_in" ? "00:00" : values.time!;
+    const formattedDate = format(values.date, "yyyy-MM-dd");
+
+    // Criar um agendamento por serviço
+    await Promise.all(values.services.map(async (serviceId) => {
+      const serviceInfo = services.find(s => s.id === serviceId);
+      if (!serviceInfo) return;
+
+      const singleBooking = {
         name: values.name,
         phone: values.phone,
-        service: values.services.join(', '),
-        booking_date: format(values.date, "yyyy-MM-dd"),
+        service: values.services.join(', '), // ⬅️ agora salva apenas um serviço por agendamento
+        booking_date: formattedDate,
         booking_time: bookingTime,
         status: 'confirmed',
         booking_type: values.bookingType
       };
 
-      await createBooking.mutateAsync(booking);
+      await createBooking.mutateAsync(singleBooking);
+    }));
 
-      toast({
-        title: "Agendamento Confirmado!",
-        description: "Sua reserva foi salva com sucesso. Enviando para WhatsApp...",
-        duration: 3000,
-      });
+    toast({
+      title: "Agendamento Confirmado!",
+      description: "Suas reservas foram salvas com sucesso. Enviando para WhatsApp...",
+      duration: 3000,
+    });
 
-      // Enviar para WhatsApp e resetar formulário
-      setTimeout(() => {
-        sendToWhatsApp(values);
-        resetForm();
-      }, 1500);
-      
-    } catch (error) {
-      console.error('Erro ao criar agendamento:', error);
-      toast({
-        title: "Erro",
-        description: "Houve um problema ao processar seu agendamento. Tente novamente.",
-        variant: "destructive",
-        duration: 5000,
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+    setTimeout(() => {
+      sendToWhatsApp(values);
+      resetForm();
+    }, 1500);
+    
+  } catch (error) {
+    console.error('Erro ao criar agendamentos:', error);
+    toast({
+      title: "Erro",
+      description: "Este horário já está ocupado!",
+      variant: "destructive",
+      duration: 5000,
+    });
+  } finally {
+    setIsSubmitting(false);
+  }
+};
+
 
   return (
     <section
