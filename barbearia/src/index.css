@@ -275,6 +275,18 @@
       -webkit-text-stroke: 0.5px blue;
     }
   }
+
+  @layer utilities {
+  @keyframes fadeSwap {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  .animate-fade-swap {
+    animation: fadeSwap 6s infinite;
+  }
+}
+
 }
 
 /* End About */
@@ -408,3 +420,4 @@
       }
   }
 }
+

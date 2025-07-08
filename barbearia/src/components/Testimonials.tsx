@@ -13,7 +13,7 @@ const testimonials = [
   {
     id: 2,
     name: "Ney",
-    text: "Já visitei várias barbearias, mas a Master Barber está em outro nível. A atenção aos detalhes e o cuidado com o cliente são impressionantes.",
+    text: "Já visitei várias barbearias, mas a The Prince of Jacu está em outro nível. A atenção aos detalhes e o cuidado com o cliente são impressionantes.",
     rating: 5,
     image: "/ney.jpeg",
   },

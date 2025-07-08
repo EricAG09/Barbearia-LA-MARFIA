@@ -69,26 +69,44 @@ const About = () => {
             </div>
           </div>
           
-          <div className="relative">
+          <div className="relative grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Card do primeiro barbeiro */}
             <div className="relative z-20 rounded-lg overflow-hidden border-2 border-barber-gold/20">
               <img
                 src="/barbeiro2.png"
                 alt="Nossa Barbearia"
-                className="w-full h-full object-cover"
+                className="w-full h-74 object-cover"
               />
+              <span className="absolute top-2 left-2  text-green-600 font-personalizada text-lg px-3 py-1 rounded">  
+                <h3>Davi Pires</h3>
+              </span>
             </div>
+            
+            {/* Card do segundo barbeiro */}
+            <div className="relative z-20 rounded-lg overflow-hidden  border-barber-gold/20">
+              <img
+                src="/barbeiro3.jpg"
+                alt="Segundo Barbeiro"
+                className="w-full h-74 object-cover"
+              />
+              <span className="absolute top-2 left-2  text-green-600  font-personalizada text-lg px-3 py-1 rounded">  
+                <h3>Kauan</h3>
+              </span>
+            </div>
+            
+            {/* Elementos decorativos */}
             <div className="absolute top-10 -right-10 z-10 hidden lg:block">
               <img
                 src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?q=80&w=1888"
                 alt="Corte de Cabelo"
-                className="w-48 h-48 object-cover rounded-lg border-2 border-barber-gold/20"
+                className="w-32 h-32 object-cover rounded-lg border-2 border-barber-gold/20"
               />
             </div>
             <div className="absolute -bottom-10 -left-10 z-10 hidden lg:block">
               <img
                 src="https://images.unsplash.com/photo-1622296089863-eb7fc530daa8?q=80&w=2070"
                 alt="Barbeiro"
-                className="w-48 h-48 object-cover rounded-lg border-2 border-barber-gold/20"
+                className="w-32 h-32 object-cover rounded-lg border-2 border-barber-gold/20"
               />
             </div>
           </div>
