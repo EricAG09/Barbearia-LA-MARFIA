@@ -19,11 +19,11 @@ export type Booking = {
 
 // Durações padrão dos serviços (em minutos)
 export const SERVICE_DURATIONS: Record<string, number> = {
-  "corte-social": 30,
-  "corte-degrade": 30,
-  "corte-infantil": 25,
+  "corte-social": 24.90,
+  "corte-degrade": 24.90,
+  "corte-infantil": 30,
   "sobrancelha": 10,
-  "barba": 20,
+  "barba": 14.90,
   "corte-degrade-barba": 50,
   "corte-degrade-pigmentacao": 45,
   "corte-degrade-pigmentacao-barba": 65,
@@ -31,11 +31,11 @@ export const SERVICE_DURATIONS: Record<string, number> = {
 
 // Valores padrão para cada serviço (exemplo, ajuste conforme seu negócio)
 export const SERVICE_PRICES: Record<string, number> = {
-  "corte-social": 50,
-  "corte-degrade": 60,
-  "corte-infantil": 40,
-  "sobrancelha": 20,
-  "barba": 35,
+  "corte-social": 24.90,
+  "corte-degrade": 24.90,
+  "corte-infantil": 30,
+  "sobrancelha": 10,
+  "barba": 14.90,
   "corte-degrade-barba": 80,
   "corte-degrade-pigmentacao": 70,
   "corte-degrade-pigmentacao-barba": 100,
